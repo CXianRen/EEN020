@@ -35,3 +35,16 @@ it means $x_4$ is an infinitely distant point.
 
 + (3)
 $x_5$ is not the same point as $x_4$, but it is an infinitely distant point.
+
+####  Computer exercise 1
++ pflat
+```matlab
+function [x_output] = pflat(x_input)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+x_n = x_input(end,:);
+x_output = x_input./x_n;
+end
+```
+![x2D](./2_x2d.png)
+![x3d](./2_x3d.png)
