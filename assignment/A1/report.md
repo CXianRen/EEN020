@@ -31,8 +31,7 @@ x3=
 ```
 
 + (2)
-it means $ x_4 $ is an infinitely distant point.
+it means $x_4$ is an infinitely distant point.
 
 + (3)
-$ x_5 $ is not the same point as $ x_4 $, but it is an infinitely distant point.
-
+$x_5$ is not the same point as $x_4$, but it is an infinitely distant point.
