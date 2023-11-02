@@ -87,3 +87,27 @@ end
 ####  Theoratical exercise 3
 + (1)
   Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous representations of the two lines. Tthe intersection point of two line must lie on both line (obviously). Thus, $xl_1=0,xl_2=0$, then $x$ must be orthogonal to both lines. Such vector, represented by the point $x$, should be the cross production. So there will be only one result in $P^2$, just the intersection point. 
+
+
+####  Computer exercise 2
++ Plotted figure for (1)(2)(3)
+  ![img](./ce_2.png)
+
++ for (2)
+  these lines appear to beparallel in 3D. 
+
++ for (4), the code of (point_line_distance_2D) is below:
+  ```matlab
+  function [dist] = point_line_distance_2D(p,line)
+  %POINT_LINE_DISTANCE_2D Summary of this function goes here
+  %   Detailed explanation goes here
+  a=line(1);
+  b=line(2);
+  c=line(3);
+  x1=p(1);
+  x2=p(2);
+
+  dist =abs(a*x1+b*x2+c)/sqrt(a*a+b*b);
+  end
+  ```
++ for (5), the distance between $l_1$ and the interescetion point is 8.2695, not close to 0 in purely numerical terms. It is because the size of the image is up to (1300,1900). After being normalized, the distance is quite small. So three lines can be considered as intersecting at a single point.
