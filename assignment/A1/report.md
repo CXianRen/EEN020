@@ -63,8 +63,8 @@ end
   6  & 3 & 1 
   \end{vmatrix} \\
   \begin{align}
-   &= (1*1-1*3)*i + (1*6-(-1)*1)*j + ((-1)*3-1*6)*k  \;\;\;\;\;\\
-   &= (-2)i + 7j + (-9)k
+    &= (1*1-1*3)*i + (1*6-(-1)*1)*j + ((-1)*3-1*6)*k  \;\;\;\;\;\\
+    &= (-2)i + 7j + (-9)k
   \end{align}
   ```
 
@@ -82,3 +82,8 @@ end
 
   Thus, the homogeneous representation of $l$ is $(-2,7,-9)^T$, or equivalently,  $(\frac{2}{9},\frac{7}{9},1)^T$, by dividing out the third coordinate. 
   <!-- https://cseweb.ucsd.edu/classes/sp06/cse152/hw1sol.pdf -->
+
+---
+####  Theoratical exercise 3
++ (1)
+  Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous representations of the two lines. Tthe intersection point of two line must lie on both line (obviously). Thus, $xl_1=0,xl_2=0$, then $x$ must be orthogonal to both lines. Such vector, represented by the point $x$, should be the cross production. So there will be only one result in $P^2$, just the intersection point. 
