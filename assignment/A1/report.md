@@ -86,7 +86,7 @@ end
 ---
 ####  Theoratical exercise 3
 + (1)
-  Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous representations of the two lines. Tthe intersection point of two line must lie on both line (obviously). Thus, $xl_1=0,xl_2=0$, then $x$ must be orthogonal to both lines. Such vector, represented by the point $x$, should be the cross production. So there will be only one result in $P^2$, just the intersection point. 
+  Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous representations of the two lines. Tthe intersection point of two line must lie on both line (obviously). Thus, $l_1^Tx=0,l_2^Tx=0$, then $x$ must be orthogonal to both lines. Such vector, represented by the point $x$, should be the cross production. So there will be only one result in $P^2$, just the intersection point. 
 
 
 ####  Computer exercise 2
@@ -111,3 +111,41 @@ end
   end
   ```
 + for (5), the distance between $l_1$ and the interescetion point is 8.2695, not close to 0 in purely numerical terms. It is because the size of the image is up to (1300,1900). After being normalized, the distance is quite small. So three lines can be considered as intersecting at a single point.
+
+
+---
+### 4 Projective Transformations
+####  Theoratical exercise 4
+
++ (1) 
+  ```math
+  y_1= \begin{pmatrix} 1 & 1 & 1\end{pmatrix}^T \\
+  y_2= \begin{pmatrix} 1 & 2 & 0\end{pmatrix}^T \\
+
+  ```
++ (2)
+  ```math
+  l_1=\begin{pmatrix} -1 & -1 & 1\end{pmatrix}^T \\
+  l_2=\begin{pmatrix} -2 & 1 & 1\end{pmatrix}^T \\
+  ```
++ (3)
+  ```math
+    (H^{-1})^Tl_1 = \begin{pmatrix} -1 & 0.5 & 0.5 \end{pmatrix}^T = 
+    \begin{pmatrix} -2 & 1 & 1\end{pmatrix}^T = l_2 
+  ```
+
+####  Theoratical exercise 5
++ (1)
+  ```math
+   0 = l_1^Tx = l_1^TIx=l_1^TH^{-1}Hx = ((H^{-T}l_1)^T)(Hx) = l_2^Ty
+  ```
+  After transformation, $y=Hx$ lie on $l_2$ when $l_2=H^{-T}l_1$.
+
+####  Theoratical exercise 6
++ (a) $H_1$ $H_2$ $H_3$  $H_4$
++ (b) $H_1$
++ (c) None of them is similarity transformations.
++ (d) None of them is Euclidean.
++ (e) None (Euclidean)
++ (f) $H_1$ $H_2$ $H_3$  $H_4$
++ (g) $H_1$ (Affine, Similarity, Euclidean)
