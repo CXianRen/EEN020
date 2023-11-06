@@ -149,3 +149,24 @@ end
 + (e) None (Euclidean)
 + (f) $H_1$ $H_2$ $H_3$  $H_4$
 + (g) $H_1$ (Affine, Similarity, Euclidean)
+
+
+---
+### 5 The Pinhole Camera
+####  Theoratical exercise 7
+  + (1)
+  ```math 
+    X_1^{*} = \begin{pmatrix} \frac{1}{5} & \frac{2}{5} & 0 & 1 \end{pmatrix}^T \\
+    X_2^{*} = \begin{pmatrix} \frac{1}{6} & \frac{1}{6} & \frac{1}{3} & 1 \end{pmatrix}^T \\
+    X_3^{*} = \begin{pmatrix} \frac{1}{2} & \frac{1}{4} & \frac{-1}{2} & 1 \end{pmatrix}^T
+  ```
+  the projection of $X_1$ means : ? 
+  <!-- todo -->
+  + (2)
+  The center of camera is:
+  ```math
+  C = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+  ```
+  The principle aix is: 
+  <!-- todo which direction it should be? how to determinate it? -->
+  
