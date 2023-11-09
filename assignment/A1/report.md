@@ -15,8 +15,8 @@ x1=
 
 x2=
 \begin{pmatrix}
-2 \\
--8
+3 \\
+-7
 \end{pmatrix}
 \;\;
 
@@ -156,9 +156,9 @@ end
 ####  Theoratical exercise 7
   + (1)
   ```math 
-    X_1^{*} = \begin{pmatrix} \frac{1}{5} & \frac{2}{5} & 0 & 1 \end{pmatrix}^T \\
-    X_2^{*} = \begin{pmatrix} \frac{1}{6} & \frac{1}{6} & \frac{1}{3} & 1 \end{pmatrix}^T \\
-    X_3^{*} = \begin{pmatrix} \frac{1}{2} & \frac{1}{4} & \frac{-1}{2} & 1 \end{pmatrix}^T
+    X_1^{*} = \begin{pmatrix} 1 & 2 & 0 \end{pmatrix}^T \\
+    X_2^{*} = \begin{pmatrix} 1 & 1 & 2 \end{pmatrix}^T \\
+    X_3^{*} = \begin{pmatrix} 2 & 1 & -2 \end{pmatrix}^T
   ```
   the projection of $X_1$ means : ? 
   <!-- todo -->
@@ -167,6 +167,7 @@ end
   ```math
   C = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
   ```
-  The principle aix is: 
-  <!-- todo which direction it should be? how to determinate it? -->
-  
+  The principle aix is looking into z, with dircetion: 
+  ```math
+    \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+  ```
