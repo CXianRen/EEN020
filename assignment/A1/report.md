@@ -96,7 +96,7 @@ Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous rep
 
 ####  Computer exercise 2
 + Plotted figure for (1)(2)(3)
-  ![](./ce_2.png)
+  ![img](./ce_2.png)
 
 + for (2)
   These lines appear to beparallel in 3D. 
@@ -196,8 +196,8 @@ Axis_{P2}=\begin{pmatrix} 0.0319 & 0.3402 & 0.9398 \end{pmatrix}^T
 ```
 
 + camera P1 and P2 in 3D (images from different angle)
-  ![](./3D_U_and_P1_P2.png)
-  ![](./P_U_3D_1.jpg)
+  ![img](./3D_U_and_P1_P2.png)
+  ![img](./P_U_3D_1.jpg)
 
 + code (camera_center_and_axis.m):
 
@@ -224,10 +224,10 @@ Axis_{P2}=\begin{pmatrix} 0.0319 & 0.3402 & 0.9398 \end{pmatrix}^T
   end
   ```
 + Project U into P1:
-![](./U_in_P1.png)
+![img](./U_in_P1.png)
 
 + Project U into P2:
-![](./U_in_P2.png)
+![img](./U_in_P2.png)
 
 ---
 ### Optional
@@ -288,13 +288,13 @@ y \sim  RU_{1,3} + ts = Rx -t{\pi}^Tx = (R-t{\pi}^T)x
 + (1)
 
 corner points and the image in the same 2D-figure. 
-![](./corners_with_image.png)
+![img](./corners_with_image.png)
 The origin of the image coordinate system located at the top-left corner.
 
 + (2)
 
 corner points without K
-![](./corners_without_k.png)
+![img](./corners_without_k.png)
 The origin of the coordinate system located at the center of four points.
 
 + (3)(4)
@@ -312,16 +312,16 @@ Axis_{p2} = \begin{pmatrix} 0.5 & 0 & 0.8660 \end{pmatrix}^T
 ```
 
 camera P1 and P2 with 3D points of corners in plane v:
-![](./3D_corners_and_P1_P2.png)
+![img](./3D_corners_and_P1_P2.png)
 
 + (5)
 
 transform the corner points (P1->P2, 3D->P2). This give the same result.
-![](./P1_to_P2_and_3D_to_P2.png)
+![img](./P1_to_P2_and_3D_to_P2.png)
 
 + (6)
 transform the image and corner points into P2
-![](./img_to_P2.png)
+![img](./img_to_P2.png)
 
 + (7) code (run4.m)
 ```matlab
