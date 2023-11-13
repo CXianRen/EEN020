@@ -5,6 +5,7 @@
 ### 2 Points in Homogeneours  Coordinates
 ####  Theoratical exercise 1
 + (1)
+
 ```math
 x1=
 \begin{pmatrix}
@@ -53,40 +54,44 @@ end
 ### 3 Lines
 ####  Theoratical exercise 2
 + (1)
-  We can get the intersection point by calculating the cross production of two lines.
 
-  ```math 
-  cross(l_1^T, l_2^T) = 
-  \begin{vmatrix}
-  i  & j & k \\
-  -1 & 1 & 1 \\
-  6  & 3 & 1 
-  \end{vmatrix} \\
-  \begin{align}
-    &= (1*1-1*3)*i + (1*6-(-1)*1)*j + ((-1)*3-1*6)*k  \;\;\;\;\;\\
-    &= (-2)i + 7j + (-9)k
-  \end{align}
-  ```
+We can get the intersection point by calculating the cross production of two lines.
 
-  Thus, homogeneous poit of interstion is $(-2,7,-9)^T$, or equivalently, $(\frac{2}{9},\frac{7}{9},1)^T$, by dividing out the third coordinate. And the corresponding point int $\R^2$ is $(\frac{2}{9},\frac{7}{9})^T$.
+```math 
+cross(l_1^T, l_2^T) = 
+\begin{vmatrix}
+i  & j & k \\
+-1 & 1 & 1 \\
+6  & 3 & 1 
+\end{vmatrix} \\
+\begin{align}
+  &= (1*1-1*3)*i + (1*6-(-1)*1)*j + ((-1)*3-1*6)*k  \;\;\;\;\;\\
+  &= (-2)i + 7j + (-9)k
+\end{align}
+```
+
+Thus, homogeneous poit of interstion is $(-2,7,-9)^T$, or equivalently, $(\frac{2}{9},\frac{7}{9},1)^T$, by dividing out the third coordinate. And the corresponding point int $\R^2$ is $(\frac{2}{9},\frac{7}{9})^T$.
 
 + (2) 
-  Same as (1), we the corss production of tow lines is: $0i+(-17)j+0k$, thus the interstion point is $(0,-17,0)$, a point at infinte distance in $R^2$. It meant the two lines do not intersect at a finite point on the Euclidean plane.
+
+Same as (1), we the corss production of tow lines is: $0i+(-17)j+0k$, thus the interstion point is $(0,-17,0)$, a point at infinte distance in $R^2$. It meant the two lines do not intersect at a finite point on the Euclidean plane.
 
 + (3)
-  Let $l=(a,b,c)^T$ denotes the line passing through point $x_1$ and $x_2$ (in homogeneous coordination). Then $x_1$ and $x_2$ must lie on the line. Thus, $x_1^Tl=0$ and $x_2^Tl=0$. The vector represnted by $l$ must be orthogonal to both $x_1$ and $x_2$. And such a vector is the cross production of the vectors represented by $x_1$ and $x_2$. So, the line is:
 
-  ```math
-  x_1 \times x_2 = (-1,1,1)^T \times (6,3,1)^T = (-2)i+7j+(-9)k
-  ```
+Let $l=(a,b,c)^T$ denotes the line passing through point $x_1$ and $x_2$ (in homogeneous coordination). Then $x_1$ and $x_2$ must lie on the line. Thus, $x_1^Tl=0$ and $x_2^Tl=0$. The vector represnted by $l$ must be orthogonal to both $x_1$ and $x_2$. And such a vector is the cross production of the vectors represented by $x_1$ and $x_2$. So, the line is:
 
-  Thus, the homogeneous representation of $l$ is $(-2,7,-9)^T$, or equivalently,  $(\frac{2}{9},\frac{7}{9},1)^T$, by dividing out the third coordinate. 
+```math
+x_1 \times x_2 = (-1,1,1)^T \times (6,3,1)^T = (-2)i+7j+(-9)k
+```
+
+Thus, the homogeneous representation of $l$ is $(-2,7,-9)^T$, or equivalently,  $(\frac{2}{9},\frac{7}{9},1)^T$, by dividing out the third coordinate. 
   <!-- https://cseweb.ucsd.edu/classes/sp06/cse152/hw1sol.pdf -->
 
 ---
 ####  Theoratical exercise 3
 + (1)
-  Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous representations of the two lines. Tthe intersection point of two line must lie on both line (obviously). Thus, $l_1^Tx=0,l_2^Tx=0$, then $x$ must be orthogonal to both lines. Such vector, represented by the point $x$, should be the cross production. So there will be only one result in $P^2$, just the intersection point. 
+
+Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous representations of the two lines. Tthe intersection point of two line must lie on both line (obviously). Thus, $l_1^Tx=0,l_2^Tx=0$, then $x$ must be orthogonal to both lines. Such vector, represented by the point $x$, should be the cross production. So there will be only one result in $P^2$, just the intersection point. 
 
 
 ####  Computer exercise 2
@@ -96,7 +101,7 @@ end
 + for (2)
   These lines appear to beparallel in 3D. 
 
-+ for (4), the code of (point_line_distance_2D.m) is below, and the intersection point is the red start in image above:
++ for (4) the code of (point_line_distance_2D.m) is below, and the intersection point is the red start in image above:
   ```matlab
   function [dist] = point_line_distance_2D(p,line)
   %POINT_LINE_DISTANCE_2D Summary of this function goes here
@@ -118,27 +123,31 @@ end
 ####  Theoratical exercise 4
 
 + (1) 
-  ```math
-  y_1= \begin{pmatrix} 1 & 1 & 1\end{pmatrix}^T \\
-  y_2= \begin{pmatrix} 1 & 2 & 0\end{pmatrix}^T \\
 
-  ```
+```math
+y_1= \begin{pmatrix} 1 & 1 & 1\end{pmatrix}^T \\
+y_2= \begin{pmatrix} 1 & 2 & 0\end{pmatrix}^T \\
+
+```
 + (2)
-  ```math
-  l_1=\begin{pmatrix} -1 & -1 & 1\end{pmatrix}^T \\
-  l_2=\begin{pmatrix} -2 & 1 & 1\end{pmatrix}^T \\
-  ```
+
+```math
+l_1=\begin{pmatrix} -1 & -1 & 1\end{pmatrix}^T \\
+l_2=\begin{pmatrix} -2 & 1 & 1\end{pmatrix}^T \\
+```
 + (3)
-  ```math
-    (H^{-1})^Tl_1 = \begin{pmatrix} -1 & 0.5 & 0.5 \end{pmatrix}^T = 
-    \begin{pmatrix} -2 & 1 & 1\end{pmatrix}^T = l_2 
-  ```
+
+```math
+  (H^{-1})^Tl_1 = \begin{pmatrix} -1 & 0.5 & 0.5 \end{pmatrix}^T = 
+  \begin{pmatrix} -2 & 1 & 1\end{pmatrix}^T = l_2 
+```
 
 ####  Theoratical exercise 5
 + (1)
-  ```math
-   0 = l_1^Tx = l_1^TIx=l_1^TH^{-1}Hx = ((H^{-T}l_1)^T)(Hx) = l_2^Ty
-  ```
+
+```math
+  0 = l_1^Tx = l_1^TIx=l_1^TH^{-1}Hx = ((H^{-T}l_1)^T)(Hx) = l_2^Ty
+```
   After transformation, $y=Hx$ lie on $l_2$ when $l_2=H^{-T}l_1$.
 
 ####  Theoratical exercise 6
@@ -154,60 +163,65 @@ end
 ### 5 The Pinhole Camera
 ####  Theoratical exercise 7
   + (1)
-    ```math 
-      X_1^{*} = \begin{pmatrix} 1 & 2 & 0 \end{pmatrix}^T \\
-      X_2^{*} = \begin{pmatrix} 1 & 1 & 2 \end{pmatrix}^T \\
-      X_3^{*} = \begin{pmatrix} 2 & 1 & -2 \end{pmatrix}^T
-    ```
-    the projection of $X_1$ means : point $X_1 will not lies on the camera plane. 
+
+```math 
+  X_1^{*} = \begin{pmatrix} 1 & 2 & 0 \end{pmatrix}^T \\
+  X_2^{*} = \begin{pmatrix} 1 & 1 & 2 \end{pmatrix}^T \\
+  X_3^{*} = \begin{pmatrix} 2 & 1 & -2 \end{pmatrix}^T
+```
+the projection of $X_1$ means : point $X_1$ will not lies on the camera plane.
+
   + (2)
-    The center of camera is:
-    ```math
-    C = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
-    ```
-    The principle axis is looking into z, with dircetion: 
-    ```math
-      \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
-    ```
+
+The center of camera is:
+```math
+C = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+```
+The principle axis is looking into z, with dircetion: 
+```math
+  \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+```
 
 ####  Computer exercise 3
-+ the camera center:
-    The center of camera and principle axis of P1:
-    ```math
-    C_{p1} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^T \\
-    Axis_{P1}=\begin{pmatrix} 0.3129 & 0.9461 & 0.0837 \end{pmatrix}^T
-    ```
++ The center of camera and principle axis of P1:
+
+```math
+C_{p1} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^T \\
+Axis_{P1}=\begin{pmatrix} 0.3129 & 0.9461 & 0.0837 \end{pmatrix}^T
+```
   The center of camera and principle axis of P2:
-    ```math
-    C_{p2} = \begin{pmatrix} 6.6352 & 14.8460 & -15.0691 \end{pmatrix}^T \\
-    Axis_{P2}=\begin{pmatrix} 0.0319 & 0.3402 & 0.9398 \end{pmatrix}^T
-    ```
+```math
+C_{p2} = \begin{pmatrix} 6.6352 & 14.8460 & -15.0691 \end{pmatrix}^T \\
+Axis_{P2}=\begin{pmatrix} 0.0319 & 0.3402 & 0.9398 \end{pmatrix}^T
+```
 
 + camera P1 and P2 in 3D (images from different angle)
   ![](./3D_U_and_P1_P2.png)
   ![](./P_U_3D_1.jpg)
 
 + code (camera_center_and_axis.m):
-  ```matlab
-    function [center,principal_axis] = camera_center_and_axis(camera_p)
-    %UNTITLED Summary of this function goes here
-    %   Detailed explanation goes here
-    P33=camera_p(1:3,1:3);
-    P4 = camera_p(:,4);
-    center = -inv(P33)*P4;
-    principal_axis = transpose(P33)*[0;0;1];
-    principal_axis = principal_axis/ norm(principal_axis);
-    end
-  ```
+
+```matlab
+  function [center,principal_axis] = camera_center_and_axis(camera_p)
+  %UNTITLED Summary of this function goes here
+  %   Detailed explanation goes here
+  P33=camera_p(1:3,1:3);
+  P4 = camera_p(:,4);
+  center = -inv(P33)*P4;
+  principal_axis = transpose(P33)*[0;0;1];
+  principal_axis = principal_axis/ norm(principal_axis);
+  end
+```
 
 + code (plot_camera.m):
-  ```matlab
-    function plot_camera(camera_p, scale)
-    %PLOT_CAMERA Summary of this function goes here
-    %   Detailed explanation goes here
-    [center axis] = camera_center_and_axis(camera_p);
-    quiver3(center(1),center(2),center(3),axis(1),axis(2),axis(3), scale);
-    end
+
+```matlab
+  function plot_camera(camera_p, scale)
+  %PLOT_CAMERA Summary of this function goes here
+  %   Detailed explanation goes here
+  [center axis] = camera_center_and_axis(camera_p);
+  quiver3(center(1),center(2),center(3),axis(1),axis(2),axis(3), scale);
+  end
   ```
 + Project U into P1:
 ![](./U_in_P1.png)
@@ -221,47 +235,54 @@ end
 + (1)
 
 We can get the following equal of P1 and x:
-  ```math
-  x=P_{1}U =  [\begin{matrix} I & 0 \end{matrix}]U = IU_{1,3} + 0U_{4} 
-  ```
+
+```math
+x=P_{1}U =  [\begin{matrix} I & 0 \end{matrix}]U = IU_{1,3} + 0U_{4} 
+```
 Then:
-  ```math
-  U(s) = \begin{pmatrix} x^T , S \end{pmatrix}^T = \begin{pmatrix} U_{1,3}^T,S \end{pmatrix}^T
-  ```
+
+```math
+U(s) = \begin{pmatrix} x^T , S \end{pmatrix}^T = \begin{pmatrix} U_{1,3}^T,S \end{pmatrix}^T
+```
 Because x is the projection of U in P1, and:
-  ```math
-  U(s) = \begin{pmatrix} x^T , s \end{pmatrix}^T = \begin{pmatrix} U_{1,3}^T,s \end{pmatrix}^T
-  ```
+
+```math
+U(s) = \begin{pmatrix} x^T , s \end{pmatrix}^T = \begin{pmatrix} U_{1,3}^T,s \end{pmatrix}^T
+```
 So:
-  ```math
-  \begin{pmatrix} x \\ s \end{pmatrix} \sim \begin{pmatrix} U_{1,3} \\ s \end{pmatrix} = U
-  ```
+```math
+\begin{pmatrix} x \\ s \end{pmatrix} \sim \begin{pmatrix} U_{1,3} \\ s \end{pmatrix} = U
+```
 The collection of points is the line in $P^3$.
 
 + (2)
 
 We have:
-  ```math
-  {\Pi}^TU(s)=0 = \begin{pmatrix} \pi \\ 1 \end{pmatrix}^T\begin{pmatrix} x \\ s \end{pmatrix} = {\pi}^Tx+s
-  ```
+
+```math
+{\Pi}^TU(s)=0 = \begin{pmatrix} \pi \\ 1 \end{pmatrix}^T\begin{pmatrix} x \\ s \end{pmatrix} = {\pi}^Tx+s
+```
 So:
-  ```math
-  s = -{\pi}^Tx
-  ```
+
+```math
+s = -{\pi}^Tx
+```
 
 + (3)
 
 We have:
-  ```math
-  x \sim P_1U  = U_{1,3}
-  ```
-  ```math
-  y \sim P_2U  = [\begin{matrix} R & t \end{matrix}]U = RU_{1,3} + tU_4 = RU_{1,3} + ts 
-  ```
+
+```math
+x \sim P_1U  = U_{1,3}
+```
+```math
+y \sim P_2U  = [\begin{matrix} R & t \end{matrix}]U = RU_{1,3} + tU_4 = RU_{1,3} + ts 
+```
 Using s we get from (2), then:
-  ```math
-  y \sim  RU_{1,3} + ts = Rx -t{\pi}^Tx = (R-t{\pi}^T)x
-  ```
+
+```math
+y \sim  RU_{1,3} + ts = Rx -t{\pi}^Tx = (R-t{\pi}^T)x
+```
 
 ####  Computer exercise 4
 + (1)
@@ -279,15 +300,16 @@ The origin of the coordinate system located at the center of four points.
 + (3)(4)
 
 the camera center and principal axis of P1:
-  ```math
-  C_{p1} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^T \\
-  Axis_{p1} = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
-  ```
+
+```math
+C_{p1} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^T \\
+Axis_{p1} = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+```
 the camera center and principal axis of P2:
-  ```math
-  C_{p2} = \begin{pmatrix} -2 & 0 & 0 \end{pmatrix}^T \\
-  Axis_{p2} = \begin{pmatrix} 0.5 & 0 & 0.8660 \end{pmatrix}^T
-  ```
+```math
+C_{p2} = \begin{pmatrix} -2 & 0 & 0 \end{pmatrix}^T \\
+Axis_{p2} = \begin{pmatrix} 0.5 & 0 & 0.8660 \end{pmatrix}^T
+```
 
 camera P1 and P2 with 3D points of corners in plane v:
 ![](./3D_corners_and_P1_P2.png)
