@@ -34,10 +34,10 @@ x3=
 it means $x_4$ is an infinitely distant point.
 
 + (3)
-$x_5$ is not the same point as $x_4$, but it is an infinitely distant point.
+$x_5$ is not the same point as $x_4$, but it is also an infinitely distant point.
 
 ####  Computer exercise 1
-+ pflat
++ pflat (mfile is:pflat.m)
 ```matlab
 function [x_output] = pflat(x_input)
 %UNTITLED Summary of this function goes here
@@ -71,7 +71,7 @@ end
   Thus, homogeneous poit of interstion is $(-2,7,-9)^T$, or equivalently, $(\frac{2}{9},\frac{7}{9},1)^T$, by dividing out the third coordinate. And the corresponding point int $\R^2$ is $(\frac{2}{9},\frac{7}{9})^T$.
 
 + (2) 
-  Same as (1), we the corss production of tow lines is: $0i+(-17)j+0k$, thus the interstion point is $(0,-17,0)$. It meant the two lines do not intersect at a finite point on the Euclidean plane.
+  Same as (1), we the corss production of tow lines is: $0i+(-17)j+0k$, thus the interstion point is $(0,-17,0)$, a point at infinte distance in $R^2$. It meant the two lines do not intersect at a finite point on the Euclidean plane.
 
 + (3)
   Let $l=(a,b,c)^T$ denotes the line passing through point $x_1$ and $x_2$ (in homogeneous coordination). Then $x_1$ and $x_2$ must lie on the line. Thus, $x_1^Tl=0$ and $x_2^Tl=0$. The vector represnted by $l$ must be orthogonal to both $x_1$ and $x_2$. And such a vector is the cross production of the vectors represented by $x_1$ and $x_2$. So, the line is:
@@ -94,9 +94,9 @@ end
   ![img](./ce_2.png)
 
 + for (2)
-  these lines appear to beparallel in 3D. 
+  These lines appear to beparallel in 3D. 
 
-+ for (4), the code of (point_line_distance_2D) is below:
++ for (4), the code of (point_line_distance_2D.m) is below, and the intersection point is the red start in image above:
   ```matlab
   function [dist] = point_line_distance_2D(p,line)
   %POINT_LINE_DISTANCE_2D Summary of this function goes here
@@ -110,7 +110,7 @@ end
   dist =abs(a*x1+b*x2+c)/sqrt(a*a+b*b);
   end
   ```
-+ for (5), the distance between $l_1$ and the interescetion point is 8.2695, not close to 0 in purely numerical terms. It is because the size of the image is up to (1300,1900). After being normalized, the distance is quite small. So three lines can be considered as intersecting at a single point.
++ For (5), the distance between $l_1$ and the interescetion point is 8.2695, not close to 0 in purely numerical terms. It is because the size of the image is up to (1300,1900). After being normalized, the distance is quite small. So three lines can be considered as intersecting at a single point.
 
 
 ---
