@@ -11,7 +11,9 @@ uf=pflat(U);
 
 plot3(uf(1,:),uf(2,:),uf(3,:), '.', 'Markersize', 2);
 hold on
+[C1,axis_1] = camera_center_and_axis(P1)
 plot_camera(P1,10);
+[C2,axis_2] = camera_center_and_axis(P2)
 plot_camera(P2,10);
 saveas(gcf,"3D_U_and_P1_P2.png");
 hold off

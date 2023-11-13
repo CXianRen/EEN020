@@ -65,7 +65,7 @@ hold on
 plot(p2_corners_p(1,[1:end 1]),p2_corners_p(2,[1:end 1]),'+-', 'Color','b');
 
 axis equal
-saveas(gcf,"P1_to_P2_and_3D_to_P2.png");
+saveas(gcf,"P1_P2.png");
 hold off
 
 % transfer img with H_tot
@@ -78,6 +78,6 @@ tform = projtform2d(H_tot)
 imshow(im_new,RB);
 hold on 
 plot(h_corners(1,[1:end 1]),h_corners(2,[1:end 1]),'+-', 'Color','r');
-saveas(gcf,"img_to_P2.png");
+
 hold off
 
