@@ -96,6 +96,7 @@ Lex $x$ denotes the intersection point, and $l_1,l_2$ denote the homogeneous rep
 
 ####  Computer exercise 2
 + Plotted figure for (1)(2)(3)
+
 ![img](./ce_2.png)
 
 + for (2)
