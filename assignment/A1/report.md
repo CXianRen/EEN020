@@ -143,31 +143,248 @@ end
 
 ####  Theoratical exercise 6
 + (a) $H_1$ $H_2$ $H_3$  $H_4$
-+ (b) $H_1$
-+ (c) None of them is similarity transformations.
-+ (d) None of them is Euclidean.
-+ (e) None (Euclidean)
++ (b) $H_1$ $H_2$ $H_3$  $H_4$
++ (c) $H_2$
++ (d) $H_2$
++ (e) $H_2$
 + (f) $H_1$ $H_2$ $H_3$  $H_4$
-+ (g) $H_1$ (Affine, Similarity, Euclidean)
-
++ (g) $H_1$ $H_2$
 
 ---
 ### 5 The Pinhole Camera
 ####  Theoratical exercise 7
   + (1)
-  ```math 
-    X_1^{*} = \begin{pmatrix} 1 & 2 & 0 \end{pmatrix}^T \\
-    X_2^{*} = \begin{pmatrix} 1 & 1 & 2 \end{pmatrix}^T \\
-    X_3^{*} = \begin{pmatrix} 2 & 1 & -2 \end{pmatrix}^T
-  ```
-  the projection of $X_1$ means : ? 
-  <!-- todo -->
+    ```math 
+      X_1^{*} = \begin{pmatrix} 1 & 2 & 0 \end{pmatrix}^T \\
+      X_2^{*} = \begin{pmatrix} 1 & 1 & 2 \end{pmatrix}^T \\
+      X_3^{*} = \begin{pmatrix} 2 & 1 & -2 \end{pmatrix}^T
+    ```
+    the projection of $X_1$ means : point $X_1 will not lies on the camera plane. 
   + (2)
-  The center of camera is:
-  ```math
-  C = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+    The center of camera is:
+    ```math
+    C = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+    ```
+    The principle axis is looking into z, with dircetion: 
+    ```math
+      \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+    ```
+
+####  Computer exercise 3
++ the camera center:
+    The center of camera and principle axis of P1:
+    ```math
+    C_{p1} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^T \\
+    Axis_{P1}=\begin{pmatrix} 0.3129 & 0.9461 & 0.0837 \end{pmatrix}^T
+    ```
+  The center of camera and principle axis of P2:
+    ```math
+    C_{p2} = \begin{pmatrix} 6.6352 & 14.8460 & -15.0691 \end{pmatrix}^T \\
+    Axis_{P2}=\begin{pmatrix} 0.0319 & 0.3402 & 0.9398 \end{pmatrix}^T
+    ```
+
++ camera P1 and P2 in 3D (images from different angle)
+  ![](./3D_U_and_P1_P2.png)
+  ![](./P_U_3D_1.jpg)
+
++ code (camera_center_and_axis.m):
+  ```matlab
+    function [center,principal_axis] = camera_center_and_axis(camera_p)
+    %UNTITLED Summary of this function goes here
+    %   Detailed explanation goes here
+    P33=camera_p(1:3,1:3);
+    P4 = camera_p(:,4);
+    center = -inv(P33)*P4;
+    principal_axis = transpose(P33)*[0;0;1];
+    principal_axis = principal_axis/ norm(principal_axis);
+    end
   ```
-  The principle aix is looking into z, with dircetion: 
-  ```math
-    \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+
++ code (plot_camera.m):
+  ```matlab
+    function plot_camera(camera_p, scale)
+    %PLOT_CAMERA Summary of this function goes here
+    %   Detailed explanation goes here
+    [center axis] = camera_center_and_axis(camera_p);
+    quiver3(center(1),center(2),center(3),axis(1),axis(2),axis(3), scale);
+    end
   ```
++ Project U into P1:
+![](./U_in_P1.png)
+
++ Project U into P2:
+![](./U_in_P2.png)
+
+---
+### Optional
+####  Theoratical exercise 8
++ (1)
+
+We can get the following equal of P1 and x:
+  ```math
+  x=P_{1}U =  [\begin{matrix} I & 0 \end{matrix}]U = IU_{1,3} + 0U_{4} 
+  ```
+Then:
+  ```math
+  U(s) = \begin{pmatrix} x^T , S \end{pmatrix}^T = \begin{pmatrix} U_{1,3}^T,S \end{pmatrix}^T
+  ```
+Because x is the projection of U in P1, and:
+  ```math
+  U(s) = \begin{pmatrix} x^T , s \end{pmatrix}^T = \begin{pmatrix} U_{1,3}^T,s \end{pmatrix}^T
+  ```
+So:
+  ```math
+  \begin{pmatrix} x \\ s \end{pmatrix} \sim \begin{pmatrix} U_{1,3} \\ s \end{pmatrix} = U
+  ```
+The collection of points is the line in $P^3$.
+
++ (2)
+
+We have:
+  ```math
+  {\Pi}^TU(s)=0 = \begin{pmatrix} \pi \\ 1 \end{pmatrix}^T\begin{pmatrix} x \\ s \end{pmatrix} = {\pi}^Tx+s
+  ```
+So:
+  ```math
+  s = -{\pi}^Tx
+  ```
+
++ (3)
+
+We have:
+  ```math
+  x \sim P_1U  = U_{1,3}
+  ```
+  ```math
+  y \sim P_2U  = [\begin{matrix} R & t \end{matrix}]U = RU_{1,3} + tU_4 = RU_{1,3} + ts 
+  ```
+Using s we get from (2), then:
+  ```math
+  y \sim  RU_{1,3} + ts = Rx -t{\pi}^Tx = (R-t{\pi}^T)x
+  ```
+
+####  Computer exercise 4
++ (1)
+
+corner points and the image in the same 2D-figure. 
+![](./corners_with_image.png)
+The origin of the image coordinate system located at the top-left corner.
+
++ (2)
+
+corner points without K
+![](./corners_without_k.png)
+The origin of the coordinate system located at the center of four points.
+
++ (3)(4)
+
+the camera center and principal axis of P1:
+  ```math
+  C_{p1} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^T \\
+  Axis_{p1} = \begin{pmatrix} 0 & 0 & 1 \end{pmatrix}^T
+  ```
+the camera center and principal axis of P2:
+  ```math
+  C_{p2} = \begin{pmatrix} -2 & 0 & 0 \end{pmatrix}^T \\
+  Axis_{p2} = \begin{pmatrix} 0.5 & 0 & 0.8660 \end{pmatrix}^T
+  ```
+
+camera P1 and P2 with 3D points of corners in plane v:
+![](./3D_corners_and_P1_P2.png)
+
++ (5)
+
+transform the corner points (P1->P2, 3D->P2). This give the same result.
+![](./P1_to_P2_and_3D_to_P2.png)
+
++ (6)
+transform the image and corner points into P2
+![](./img_to_P2.png)
+
++ (7) code (run4.m)
+```matlab
+% clean history and terminal
+clear
+clc
+% 
+
+addpath './code'
+
+load("data/compEx4.mat");
+
+% load image
+img = imread("data/compEx4.jpg");
+imagesc(img);
+colormap gray
+axis equal 
+
+K_inv = inv(K)
+n_corners = K_inv* corners
+
+hold on 
+% plot corners
+plot(corners(1,[1:end 1]),corners(2,[1:end 1]),'*-', 'Color','r');
+saveas(gcf,"corners_with_image.png");
+hold off 
+% plot corners without K
+plot(n_corners(1,[1:end 1]),n_corners(2,[1:end 1]),'*-', 'Color','r');
+axis ij
+axis equal
+saveas(gcf,"corners_without_k.png");
+
+% show 3d point and camera center
+pv = pflat(v)
+s = -pv(1:3)'*n_corners
+u = pflat([n_corners;s])
+
+plot3(u(1,[1:end 1]),u(2,[1:end 1]),u(3,[1:end 1]),'*-', 'Color','b')
+
+hold on
+P=[1 0 0 0; 0 1 0 0; 0 0 1 0]
+
+% compute the second camera P2
+R = [cos(pi/6) 0 -sin(pi/6); 0 1 0 ; sin(pi/6) 0 cos(pi/6)]
+C = [-2;0;0]
+T = -R*C
+P2 = [R T]
+
+[center paxis] = camera_center_and_axis(P)
+[center2 paxis2] = camera_center_and_axis(P2)
+
+plot_camera(P,5);
+plot_camera(P2,5)
+axis equal
+saveas(gcf,"3D_corners_and_P1_P2.png");
+hold off
+
+% calculate corners in P2 with restulr from exercise 8
+H=R-T*pv(1:3)'
+p2_corners_h= pflat(H*n_corners)
+
+% calcualte corners in P2 projection of 3D point
+p2_corners_p = pflat(P2*u)
+
+
+plot(p2_corners_h(1,[1:end 1]),p2_corners_h(2,[1:end 1]),'*-', 'Color','r');
+hold on 
+plot(p2_corners_p(1,[1:end 1]),p2_corners_p(2,[1:end 1]),'+-', 'Color','b');
+
+axis equal
+saveas(gcf,"P1_to_P2_and_3D_to_P2.png");
+hold off
+
+% transfer img with H_tot
+H_tot = K*H*K_inv 
+h_corners = pflat(H_tot * corners)
+
+
+tform = projtform2d(H_tot)
+[im_new, RB] = imwarp(img, tform);
+imshow(im_new,RB);
+hold on 
+plot(h_corners(1,[1:end 1]),h_corners(2,[1:end 1]),'+-', 'Color','r');
+saveas(gcf,"img_to_P2.png");
+hold off
+```
+
+
