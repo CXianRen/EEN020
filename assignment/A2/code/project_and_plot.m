@@ -7,6 +7,8 @@ x_p = P*X;
 x_p_f = x_p ./ x_p(end,:);
 
 imshow(image);
+hold on 
 plot(x_p_f(1,:), x_p_f(2,:),'+', 'Markersize', 3, 'color', 'r');
+hold off
 end
 

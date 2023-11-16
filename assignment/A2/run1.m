@@ -32,7 +32,7 @@ axis equal
 saveas(gcf,"c1_2.png");
 hold off
 
-% (3) plot TX and Pinv(T) 
+% (3) plot T*X and P*inv(T) 
 T1= [1 0 0 0; 0 3 0 0; 0 0 1 0; 1/8 1/8 0 1]
 T2= [1 0 0 0; 0 1 0 0; 0 0 1 0; 1/16 1/16 0 1]
 X1= T1*X;
@@ -41,6 +41,7 @@ X2= T2*X;
 X1_f = X1 ./ X1(end,:);
 X2_f = X2 ./ X2(end,:);
 
+% new cameras 
 Pt1 = cell(1,length(P));
 Pt2 = cell(1,length(P));
 for i = 1:length(P)
@@ -65,17 +66,20 @@ saveas(gcf,"c1_T2.png");
 hold off 
 
 % (4) 
-% plot 1st img with T1X  and Pt1_1*T1X 
+% plot 1st img with T1X  and Pt1_1*T1X
+% should we just pass the visable points to the fucntion? (TODO)
+project_and_plot(Pt1{1}, X1_f,imread(imfiles{1}));
 hold on
 plot(x{1}(1,x1_idx), x{1}(2,x1_idx), 'o', 'color', 'b', 'Markersize', 3);
-project_and_plot(Pt1{1}, X1_f(:,x1_idx),imread(imfiles{1}));
+axis equal
 saveas(gcf,"c1_4_T1.png");
 hold off
 
 % plot 1st img with T2X  and Pt2_1*T1X 
+project_and_plot(Pt2{1}, X2_f,imread(imfiles{1}));
 hold on
-plot(x{1}(1,x1_idx), x{1}(2,x1_idx), 'o', 'color', 'b', 'Markersize', 3);
-project_and_plot(Pt2{1}, X2_f(:,x1_idx),imread(imfiles{1}));
+plot(x{1}(1,x1_idx), x{1}(2,x1_idx), 'o', 'color', 'g', 'Markersize', 3);
+axis equal
 saveas(gcf,"c1_4_T2.png");
 hold off
 
