@@ -195,3 +195,71 @@ R_{31} & R_{32} & R_{33}
 ```
 We can notice that the last row of P still same as R, thus
 the solution for $P_{33}X=(0,0,1)^T$ is same as above. So, both camera (normalzed or not) have the same principle axis.
+
+
+---
+### 4 RQ Factorization and Computation of K
++ (1)
+<!-- TODO what doest R1^T mean? -->
+```math
+  KR = 
+  \begin{pmatrix} 
+  a & b & c \\
+  0 & d & e \\
+  0 & 0 & f
+  \end{pmatrix}
+  \begin{pmatrix} 
+  r_{11} & r_{12} & r_{13} \\
+  r_{21} & r_{22} & r_{23} \\
+  r_{31} & r_{32} & r_{33}
+  \end{pmatrix}  \\
+  = 
+  \begin{pmatrix} 
+  a*r_{11} + b*r_{21} + c*r_{31} & a*r_{12} + b * r_{22} + c* r_{32} & a*r_{13}+b*r_{23}+c*r_{33} \\
+  d* r_{21} + e * r_{31} & d* r_{22} + e * r_{32} & d * r_{23} + e *r_{33}  \\
+  f * r_{31} &  f* r_{32} & f*r_{33}
+  \end{pmatrix} \\
+  =
+  \begin{pmatrix} 
+  a*(r_{11},r_{12},r_{13}) + b*(r_{21} ,r_{22} , r_{23}) + c*(r_{31} , r_{23} , r_{33}) \\
+  d*(r_{21},r_{22} ,r_{23}) +   e*(r_{31},r_{32}, r_{33})  \\
+  f*(r_{31},r_{r2}, r_{33})
+  \end{pmatrix}  
+  =  
+  \begin{pmatrix} 
+  aR_1^T + bR_2^T + cR_3^T \\
+  dR_2^T + eR_3^T \\
+  fR_3^T
+  \end{pmatrix}
+```
++ (2)
+
+Because $\|R_3\| = 1$, so $f= \|P_{3,:}\|  = 1$, thus, $R_3= (\frac{1}{\sqrt2},0,-\frac{1}{\sqrt2})$.
+
++ (3)
+
+If $P_{2,:} = v = dR_2 + eR_3$, let $\theta$ denotes the angele of $v$ and $R_3$, and $\|R_3\|=1$ we have:
+```math
+  cos({\theta}) = \frac{R_3 \cdot v^T }{\|R_3\|\|v\|} = 
+  \frac{R_3 \cdot v^T }{\|v\|}
+```
+Because $R_2 \perp R_3$, we can get $e$ from:
+```math 
+ e  = cos({\theta}) * \|v\| = R_3 \cdot v^t = (\frac{1}{\sqrt2}, 0 , -\frac{1}{\sqrt2} ) (700\sqrt2, 2800 , -700\sqrt2)^T = 1400
+```
+Thus $R_2 = v - e R_3 = (0, 2800, 0)$, and becuase $\|R_2\| = 1$, then $d = 2800$ and $R_2 = (0,1,0)$ 
+
++ (4)
+
+Similarly, we can get $b$ and $c$:
+```math 
+  c = R_3 \cdot P_{1,:}^T  = 1600  \\
+  b = R_2 \cdot P_{1,:}^T  = 0
+```
+Then $a = 3200$, $R_1 = (\frac{1}{\sqrt2}, 0 ,\frac{1}{\sqrt2})$
+Thus:
+```math
+  f_{length} = 2800 \\
+  aspect  = 1.143 \\
+  printcipal point = (1600,1400) \\ 
+```
