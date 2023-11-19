@@ -263,3 +263,49 @@ Thus:
   aspect  = 1.143 \\
   printcipal point = (1600,1400) \\ 
 ```
+
+---
+### 5 Direct Linear Transformation DLT
+
++ (1)
+For any $M$, when $v=\mathbf{0}$, $Mv = \mathbf{0}$, then $\|Mv|\^2 = 0$. Thus $\underset{v}{min}\|Mv\|^2$ always has the minimum value 0.
+
++ (2)
+
+Because $M=U{\Sigma}V^T$, and U,V are orthogonal, ${\Sigma}$ is a diagonal matrix, which mean $U^TU=I$, $V^TV=I$, then:
+```math
+\begin{align}
+\|Mv\|^2 & = (Mv)^T(Mv) = (v^TM^T)(Mv)\\
+& = v^T(U{\Sigma}V^T)^T(U{\Sigma}V^Tv) \\
+&=  v^T V(U{\Sigma})^T(U{\Sigma}V^Tv) \\
+&=  v^T V {\Sigma}^T U^T U {\Sigma} V^Tv \\
+&=  v^T V {\Sigma}^T {\Sigma} V^Tv \\
+\end{align}
+```
+Let $w$ denotes ${\Sigma}V^Tv$, then $w^T =  v^TV{\Sigma^T}$.
+With (5) above:
+```math
+\begin{align}
+\|Mv\|^2 & = w^Tw  = \|w\|^2 = \| {\Sigma}V^Tv \| ^2
+\end{align}
+```
+When if $\|v\|^2=1$, because :
+```math
+\|V^Tv\| = (V^Tv)^T(V^Tv) = v^TVV^Tv = v^Tv = \|v\|^2 = 1
+```
+
++ (3)
+
+From (2), we get
+```math
+  \underset{\|v\|^2=1}{min}\|Mv\|^2 =  \underset{\|v\|^2=1}{min}\|{\Sigma}V^Tv\|^2.
+```
+Let $w$ denotes $V^Tv$, because $v$ is an unit vector, and V is orthogonal, so $w$ is a unite vector. Thus:
+```math
+  \underset{\|v\|^2=1}{min}\|{\Sigma}V^Tv\|^2 = \underset{\|w\|^2=1}{min}\|{\Sigma}w\|^2
+```
+So, $\underset{\|\~v\|^2=1}{min}\|{\Sigma}V^T\~v\|^2$ gives the same minimal value as $\underset{\|v\|^2=1}{min}\|Mv\|^2$.
+And because $\|Mv\|^2 = \|M(-v)\|^2$, so there are at least two solutions to these problems.
+
++(4)
+<!-- ToDo -->
