@@ -75,6 +75,7 @@ And the projective ambiguity is elimiated, but there is still similarity ambigui
 
 ---
 ### 3 Camera Calibration
+####  Theoratical exercise 3
 + (1)
 Because $T*T^{-1}=I$, we can esaIly verify it like:
 ```math 
@@ -199,6 +200,8 @@ the solution for $P_{33}X=(0,0,1)^T$ is same as above. So, both camera (normalze
 
 ---
 ### 4 RQ Factorization and Computation of K
+####  Theoratical exercise 4
+
 + (1)
 <!-- TODO what doest R1^T mean? -->
 ```math
@@ -266,6 +269,7 @@ Thus:
 
 ---
 ### 5 Direct Linear Transformation DLT
+####  Theoratical exercise 5
 
 + (1)
 For any $M$, when $v=\mathbf{0}$, $Mv = \mathbf{0}$, then $\|Mv|\^2 = 0$. Thus $\underset{v}{min}\|Mv\|^2$ always has the minimum value 0.
@@ -309,3 +313,11 @@ And because $\|Mv\|^2 = \|M(-v)\|^2$, so there are at least two solutions to the
 
 +(4)
 <!-- ToDo -->
+
+####  Theoratical exercise 6
+
++ (1)
+
+```math
+P = N^{-1}\~P
+```
