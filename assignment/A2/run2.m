@@ -88,6 +88,9 @@ hold off
 [K_2 R_2] = rq(P_2_dN);
 
 
+% save P_1 and P_2 for
+save("estimated_p.mat","P_1_dN","P_2_dN");
+
 
 %Optional
 eRMS = @(xp) sqrt(norm(x{1}-xp,'fro').^2/size(Xmodel,2));
