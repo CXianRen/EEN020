@@ -39,11 +39,13 @@ These points are matched very well.
 
 + (3)  
 
-The 3D points has been streched and rotated. Solution of $T_2$ looks more reasonable now.
-$T_1X$ with cameras.
+The 3D points has been streched and rotated. Solution of $T_2$ looks more reasonable now.  
+$T_1X$ with cameras.  
+
 ![img](./c1_T1.png)  
 $T_2X$ with cameras.  
-![img](./c1_T2.png)  
+
+![img](./c1_T2.png)   
 <!-- Todo: answer for: what happened to the 3D points? Does any of them appear reasonable? -->
 
 + (4) 
