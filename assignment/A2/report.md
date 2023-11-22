@@ -22,31 +22,37 @@ Where $PT^{-1}$ is the new camera for the new 3D points $X'$.
 
 ####  Computer Exercise 1
 code file "run1.m" is for this task.
-+ (1) 
-plot the 3D points of the reconstruction.  
++ (1)
+ 
+Plot the 3D points of the reconstruction.  
 No, the physical properties doesn't look realistic.  
 ![](./c1_1.png)  
 
-+ (2)  
-plot the image, the projtective points and the image points in the same figure.  
++ (2)
+  
+Plot the image, the projtective points and the image points in the same figure.  
 (**Here I plot the first image**)  
-red + are projtective points from 3D points **X**. blue o are image points from **x**  
+Red '+' are projtective points from 3D points **X**. Blue 'o' are image points from **x**  
 These points are matched very well.
-![](c1_2/../c1_2.png)  
+
+![img](c1_2/../c1_2.png)  
 
 + (3)  
-$T_1X$ with cameras.  
-![](./c1_T1.png)  
+
+The 3D points has been streched and rotated. Solution of $T_2$ looks more reasonable now.
+$T_1X$ with cameras.
+![img](./c1_T1.png)  
 $T_2X$ with cameras.  
-![](./c1_T2.png)  
+![img](./c1_T2.png)  
 <!-- Todo: answer for: what happened to the 3D points? Does any of them appear reasonable? -->
 
-+ (4)  
-Project $T_1X$  and $T_2X$ into new corresponding cameras. (Here we still choose the first view. Red '+' are projtective points from $T_iX$)  
++ (4) 
+
+Project $T_1X$  and $T_2X$ into new corresponding cameras. (Here we still choose the first view. Red '+' are projtective points from $T_iX$). From the ploted images, the projections and the image points align for the new reconstructions so well.  
 $T_1X$ projtective points  
-![](./c1_4_T1.png)  
+![img](./c1_4_T1.png)  
 $T_2X$ projtective points  
-![](./c1_4_T2.png)
+![img](./c1_4_T2.png)
 
 
 ####  Theoratical exercise 2

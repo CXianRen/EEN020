@@ -83,7 +83,7 @@ hold on
 plot(x{1}(1,x1_idx), x{1}(2,x1_idx), 'o', 'color', 'b', 'Markersize', 4);
 axis equal
 hold off
-title("C1:image points(RED) and projective points(BLUE) of soultion of T1 in first images");
+
 saveas(gcf,"c1_4_T1.png");
 
 % plot 1st img with T2X  and Pt2_1*T1X 
