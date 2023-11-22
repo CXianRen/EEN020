@@ -43,6 +43,7 @@ The 3D points has been streched and rotated. Solution of $T_2$ looks more reason
 $T_1X$ with cameras.  
 
 ![img](./c1_T1.png)  
+
 $T_2X$ with cameras.  
 
 ![img](./c1_T2.png)   
@@ -52,8 +53,11 @@ $T_2X$ with cameras.
 
 Project $T_1X$  and $T_2X$ into new corresponding cameras. (Here we still choose the first view. Red '+' are projtective points from $T_iX$). From the ploted images, the projections and the image points align for the new reconstructions so well.  
 $T_1X$ projtective points  
+
 ![img](./c1_4_T1.png)  
+
 $T_2X$ projtective points  
+
 ![img](./c1_4_T2.png)
 
 
