@@ -132,10 +132,10 @@ Similary as above, we have:
 ```
 + (3)
 The geometric interpretation of the transformations A and B is to
-move a point $(x,y)$ by adding vercotr $(-x_0,-y_0)$ then scale it with factor $1/f$ in both x and y directions.
+move a point $(x,y)$ by adding vercotr $(-x_0,-y_0)$ (what A does.), then scale it with factor $1/f$ in both x and y directions( what B does.).
 
 + (4)
-The interprtation of this operation is to conver the points from sensor coordination system back to image coordination system. the principal point $(x_0,y_0)$ ended up at $(0, 0, 1)$ . A point with distance f to the pricipal point ended up at the cycle whoes center is at $(0,0,1)$ and r = 1.
+The interprtation of this operation is to conver the points from sensor coordination system back to image coordination system. The principal point $(x_0,y_0)$ ended up at $(0, 0, 1)$ . A point with distance f to the pricipal point ended up at a cycle whoes center is at $(0,0,1)$ and radius is 1.
 <!-- todo, meaning the point is at a cycle? -->
 
 
@@ -152,10 +152,12 @@ K^{-1} =
 ```
 So the normalize points are:
 ```math 
-(0,300) \sim (-1, 0,1) \\
+(0,300) \sim (-1, 0,1)
+ ```
+```math 
 (800,300) \sim (1,0,1)
  ```
-let A denote $(-1, 0,1)$, B denote $(1,0,1)$,$\theta$ denote the angle of two viewing rays:
+Let A denotes $(-1, 0,1)$, B denotes $(1,0,1)$,$\theta$ denotes the angle of two viewing rays:
 ``` math 
 \theta = arcos(\frac{A \cdot B}{\|A\|\|B\|}) = \frac{\pi}{2}
 ```
@@ -268,15 +270,21 @@ Thus $R_2 = v - e R_3 = (0, 2800, 0)$, and becuase $\|R_2\| = 1$, then $d = 2800
 
 Similarly, we can get $b$ and $c$:
 ```math 
-  c = R_3 \cdot P_{1,:}^T  = 1600  \\
+  c = R_3 \cdot P_{1,:}^T  = 1600 
+```
+```math 
   b = R_2 \cdot P_{1,:}^T  = 0
 ```
 Then $a = 3200$, $R_1 = (\frac{1}{\sqrt2}, 0 ,\frac{1}{\sqrt2})$
 Thus:
 ```math
-  f_{length} = 2800 \\
-  aspect  = 1.143 \\
-  printcipal point = (1600,1400) \\ 
+  f_{length} = 2800
+```
+```math
+  aspect  = 1.143
+```
+```math
+  printcipal \ point = (1600,1400) 
 ```
 
 ---
