@@ -16,9 +16,9 @@ For any projective transformation $T$ of 3D space to $X$, we have:
 ```
 Then:
 ```math
-  {\lambda}x = PX = PT^{-1}TX = (PT^y{-1})(TX)
+  {\lambda}x = PX = PT^{-1}TX = (PT^{-1})(TX)
 ```
-Where $PT^{-1}$ is the new camera for the new 3D points $X'$.
+Where $PT^{-1}$ is the new camera for the new 3D points $X'$, and they has same projective points with original pairs of $P$ and $X$.
 
 ####  Computer Exercise 1
 code file "run1.m" is for this task.
@@ -59,7 +59,7 @@ $T_2X$ projtective points
 <!-- TODO: what is the same projective distortions mean? the distortions in images? or the reconstructions? -->
 + (1)  
 
-When we use calibrated camera, $P=(R|T)$. If ${\lambda}x = (R|T)X$, then for any similarity transformation:
+When we use calibrated camera, $P=(R|T)$. If ${\lambda}x = (R|T)X$, then for any similarity transformation, we have:
 ```math
   \~{X} = 
 \begin{pmatrix}
