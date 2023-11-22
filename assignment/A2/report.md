@@ -346,3 +346,4 @@ Since $S^TS$ is a diagnoal matrix this menas that V diagonalizes $M^TM$ and ther
 ```math
 P = N^{-1}\~P
 ```
+####  Computer Exercise 2
