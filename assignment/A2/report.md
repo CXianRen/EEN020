@@ -12,13 +12,9 @@ For estimated points $X$ in 3D space and camera P, the projtective points in P i
 ```
 For any projective transformation $T$ of 3D space to $X$, we have:
 ```math
-  X' = TX
-```
-Then:
-```math
   {\lambda}x = PX = PT^{-1}TX = (PT^{-1})(TX)
 ```
-Where $PT^{-1}$ is the new camera for the new 3D points $X'$, and they has same projective points with original pairs of $P$ and $X$.
+Then $PT^{-1}$ can be regared as a new camera and $X' = TX$ as the new reconstruction. This  means that given a soultion we can apply any projective transformation to the 3D points and obtain a new solution.
 
 ####  Computer Exercise 1
 code file "run1.m" is for this task.
@@ -63,27 +59,31 @@ $T_2X$ projtective points
 
 ####  Theoratical exercise 2
 <!-- TODO: what is the same projective distortions mean? the distortions in images? or the reconstructions? -->
-+ (1)  
++ (1)
 
-When we use calibrated camera, $P=(R|T)$. If ${\lambda}x = (R|T)X$, then for any similarity transformation, we have:
+When we normalized the image coordinates using $K^{-1}$, then the problem becomes that of finding normalized cameras $[R|t]$ and 3D points $X$ such that：
+```math 
+{\lambda}x = (R|t)X
+```
+where $R$ is a rotation matrix. Given a solution $[R|t]$ and $X$, we can try to apply same transformation as exercise 1. However when multiplying $[R|t]$ with $T$, the result does not have a rotation matrix in the first 3x3 block. To achieve a valid solution T should be a similarity transformation. 
 ```math
-  \~{X} = 
+  T= 
 \begin{pmatrix}
 sQ & v \\
 0 & 1
 \end{pmatrix}^{-1}X
 ``` 
-we have
+Where Q is a ritation. Then we get:
 ```math 
-  \frac{{\lambda}}{s}x = (R|T) 
+  \frac{{\lambda}}{s}x = (R|t) 
   \begin{pmatrix}
     sQ & v \\
     0 & 1
   \end{pmatrix}^{-1} \~X = 
-  (RQ|\frac{1}{s}(RV+T))X
+  (RQ|\frac{1}{s}(RV+t))X
 ```
-Since RQ is a rotaion, so the new camera $(RQ|\frac{1}{s}(RV+T))$ is still calibrated. So there will not be projective distortions to the reconstruction.
-And the projective ambiguity is elimiated, but there is still similarity ambiguity to the reconstruction. 
+
+which is a valid solution since RQ is a rotaion. Hence, we do not have the same distrtion since similarity transformations preserve angles and parallel lines. But there is still similarity ambiguity to the reconstruction. 
 
 ---
 ### 3 Camera Calibration
@@ -313,7 +313,7 @@ With (5) above:
 \|Mv\|^2 & = w^Tw  = \|w\|^2 = \| {\Sigma}V^Tv \| ^2
 \end{align}
 ```
-When if $\|v\|^2=1$, because :
+When if $\|v\|^2=1$, then :
 ```math
 \|V^Tv\| = (V^Tv)^T(V^Tv) = v^TVV^Tv = v^Tv = \|v\|^2 = 1
 ```
@@ -329,10 +329,15 @@ Let $w$ denotes $V^Tv$, because $v$ is an unit vector, and V is orthogonal, so $
   \underset{\|v\|^2=1}{min}\|{\Sigma}V^Tv\|^2 = \underset{\|w\|^2=1}{min}\|{\Sigma}w\|^2
 ```
 So, $\underset{\|\~v\|^2=1}{min}\|{\Sigma}V^T\~v\|^2$ gives the same minimal value as $\underset{\|v\|^2=1}{min}\|Mv\|^2$.
-And because $\|Mv\|^2 = \|M(-v)\|^2$, so there are at least two solutions to these problems.
+And because $\|Mv\|^2 = \|M(-v)\|^2$, $\|v\| = \|-v\|$, there are at least two solutions to these problems.
 
-+(4)
-<!-- ToDo -->
++ (4)
+
+If M has SVD then:
+```math
+M^TM=(USV^T)^T(USV^T)  = VS^TU^TUSV^T = VS^TSV^T
+```
+Since $S^TS$ is a diagnoal matrix this menas that V diagonalizes $M^TM$ and therefore $S^TS$ contains the eigenvalues and V contains the eigenvectors of $M^TM$.  The diagonal elements of $S^TS$ are ordered decreasingly. Thus to find an eigenvector corresponding to the smallest eigenvalue we should select the last column of V. 
 
 ####  Theoratical exercise 6
 
