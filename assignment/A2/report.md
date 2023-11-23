@@ -350,6 +350,24 @@ P = N^{-1}\~P
 ####  Computer Exercise 2
 code file run2.m is for this exercise.
 + (1) 
+```
+x_1_mean =
+   1.0e+03 *
+    1.0149
+    0.8390
+
+x_1_std =
+  196.6099
+  198.5218
+
+x_2_mean =
+  930.9657
+  795.1860
+
+x_2_std =
+  198.4141
+  199.4361
+```
 
 Normalized points by applying N.
 
@@ -382,16 +400,11 @@ camera centers and principle axis with model points.
 
 The inner parameters for the first view (camera 1, K1):
 ```matlab
-   37.4451   -0.1048   15.1552
-         0   37.4173   10.7304
-         0         0    0.0155
-```
+   1.0e+03 *
 
-The inner parameters for the SECOND view (camera 2, K2):
-```matlab
-   37.4488   -0.1713   13.3187
-         0   37.6768   12.0685
-         0         0    0.0157
+    2.4219   -0.0068    0.9802
+         0    2.4201    0.6940
+         0         0    0.0010
 ```
 
 <!-- TODO how can we know these K are true? -->

@@ -100,7 +100,7 @@ saveas(gcf,"c2_4.png");
 % compute the K
 [K_1 R_1] = rq(P_1_dN);
 [K_2 R_2] = rq(P_2_dN);
-
+K_1 = K_1 ./ K_1(3,3);
 
 % save P_1 and P_2 for exercise 4
 save("estimated_p.mat","P_1_dN","P_2_dN");
