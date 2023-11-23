@@ -391,7 +391,7 @@ project X with estimated P2
 
 + (4)
 
-Yes, the result look reasonable.  
+Yes, the result looks reasonable.  
 camera centers and principle axis with model points.
 
 ![img](./c2_4.png)
@@ -406,7 +406,7 @@ The inner parameters for the first view (camera 1, K1):
          0    2.4201    0.6940
          0         0    0.0010
 ```
-
+We cannot know that theres are the "true" parameters because we don't known the information of the physical camera. Because we know the 3D points $X$, to find out P, for any certain $X$, there is only a certain P resulting the certaion projected points as the image. So there is not ambiguity as exercise 1 which is to estimate P and X from an image at a same time.   
 <!-- TODO how can we know these K are true? -->
 
 + Optional
