@@ -132,7 +132,7 @@ Similary as above, we have:
 ```
 + (3)
 The geometric interpretation of the transformations A and B is to
-move a point $(x,y)$ by adding vercotr $(-x_0,-y_0)$ (what A does.), then scale it with factor $1/f$ in both x and y directions( what B does.).
+move a point $(x,y)$ by adding vercotr $(-x_0,-y_0)$ (what B does.), then scale it with factor $1/f$ in both x and y directions( what A does.).
 
 + (4)
 The interprtation of this operation is to conver the points from sensor coordination system back to image coordination system. The principal point $(x_0,y_0)$ ended up at $(0, 0, 1)$ . A point with distance f to the pricipal point ended up at a cycle whoes center is at $(0,0,1)$ and radius is 1.
