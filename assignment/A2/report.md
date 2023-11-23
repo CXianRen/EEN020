@@ -444,3 +444,21 @@ Conclusion:
 code for exercise 3 in run3.m
 
 ####  Computer Exercise 4
+code file run4.m is for this exercise
++ (1)
+
+Project the computed points.
+
+![img](c4_x_eX_P1.png)  
+![img](c4_x_eX_P2.png)
+
++ (2)
+
+with K
+
+![img](c4_x_eX_P1_n.png)
+![img](c4_x_eX_P2_n.png)
+
++ (3)
+
+![img](c4_final.png)

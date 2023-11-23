@@ -27,7 +27,7 @@ project_and_plot(P_1_dN,X,img_cube1)
 hold on
 plot(x1(1,:),x1(2,:), 'o', 'Color','y');
 hold off
-title("C4:x from estimated X in P1");
+title("C4:projected x (RED) from estimated X in P1, VS. SIF-T (YELLOW)");
 saveas(gcf,"c4_x_eX_P1.png");
 
 %P2
@@ -35,7 +35,7 @@ project_and_plot(P_2_dN,X,img_cube2);
 hold on
 plot(x2(1,:),x2(2,:), 'o', 'Color','y');
 hold off
-title("C4:x from estimated X in P2");
+title("C4:projected x (RED) from estimated X in P2, VS. SIF-T (YELLOW)");
 saveas(gcf,"c4_x_eX_P2.png");
 
 % normalizing x1 and x2 with K which is from rq.m
@@ -69,7 +69,7 @@ hold on
 plot(x_p_1_n(1,:),x_p_1_n(2,:), '+', 'Color','r');
 plot(x1(1,:),x1(2,:), 'o', 'Color','y');
 hold off
-title("C4:x from estimated X in normalized P1");
+title("C4:projected x (RED) from estimated X in normalized P1, VS. SIF-T (YELLOW)");
 saveas(gcf,"c4_x_eX_P1_n.png");
 
 % P2
@@ -81,7 +81,7 @@ hold on
 plot(x_p_2_n(1,:),x_p_2_n(2,:), '+', 'Color','r');
 plot(x2(1,:),x2(2,:), 'o', 'Color','y');
 hold off
-title("C4:x from estimated X in normalized P2");
+title("C4:projected x (RED) from estimated X in normalized P1, VS. SIF-T (YELLOW)");
 saveas(gcf,"c4_x_eX_P2_n.png");
 
 % select good points
@@ -93,6 +93,7 @@ X = X(:, good_points);
 % flatten X before plot it
 X = X ./ X(4,:);
 
+% plot the final result.
 plot3(X(1,:),X(2,:),X(3,:),'.' ,'color', 'r');
 hold on
 plotcams({P_1_n,P_2_n});
@@ -102,3 +103,7 @@ plot3([Xmodel(1,startind); Xmodel(1,endind)], ...
       [Xmodel(3,startind); Xmodel(3,endind)], 'b-');
 axis equal
 hold off
+title("C4: 3D estimated points and cameras");
+view(-20,-80)
+saveas(gcf,"c4_final.png");
+

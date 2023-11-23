@@ -1,5 +1,8 @@
+clear
+close all
+clf
 clc
-clear 
+
 
 % set up environoment
 addpath ../vlfeat-0.9.21;
