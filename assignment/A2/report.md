@@ -333,3 +333,88 @@ And because $\|Mv\|^2 = \|M(-v)\|^2$, so there are at least two solutions to the
 ```math
 P = N^{-1}\~P
 ```
+
+####  Computer Exercise 2
+code file run2.m is for this exercise.
++ (1) 
+
+Normalized points by applying N.
+
+![img](./c2_1.png)
+
++ (2)
+
+Estimate camera. The smallest singular value and $\|Mv\|$ are both close to zero. 
+(code is in "estimate_camera_DLT.m")
+
++ (3)
+
+The measured points and projected points are close to each other.  
+project X with estimated P1
+
+![img](./c2_2.png)
+
+project X with estimated P2
+
+![img](./c2_3.png)
+
++ (4)
+
+Yes, the result look reasonable.  
+camera centers and principle axis with model points.
+
+![img](./c2_4.png)
+
++ (5)
+
+The inner parameters for the first view (camera 1, K1):
+```matlab
+   37.4451   -0.1048   15.1552
+         0   37.4173   10.7304
+         0         0    0.0155
+```
+
+The inner parameters for the SECOND view (camera 2, K2):
+```matlab
+   37.4488   -0.1713   13.3187
+         0   37.6768   12.0685
+         0         0    0.0157
+```
+
+<!-- TODO how can we know these K are true? -->
+
++ Optional
+
+RMS:
+```matlab
+% all points, with normalization
+eRMS_normalized =
+
+    3.5712
+
+% all points, without normalization
+eRMS_without_normalization =
+
+    3.5716
+
+% eRMS, 7 points, with normalization. 
+eRMS_7ps =
+
+    4.1872
+
+% eRMS, 7 points, without normalization.
+eRMS_7ps_in =
+
+    4.1913
+```
+Conclusion:
++ The eRMS decreases as the increase of the number of points. (more points higher accuracy)
++ as the number of points increases, the effect of normalization or not on accuracy decreases (relect by the eRMS). 
+
+
+
+### 6 Feature Extraction and Mactching using SIFT.
+####  Computer Exercise 3
+code for exercise 3 in run3.m
+
+####  Computer Exercise 4
