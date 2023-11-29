@@ -1,0 +1,18 @@
+clear 
+clc
+close all 
+cfg
+
+x = linspace(-5,5,1);
+y = linspace(-5,5,1);
+
+[X,Y] = meshgrid(x,y);
+
+Z = ones(size(X));
+surf(X,Y,Z);
+hold on 
+a = [1; 1; 1];
+b = [1; 0; 1];
+c = cross(a,b);
+
+quiver3(a,0,0,1,0,1, 'AutoScale', 'off')
