@@ -196,3 +196,14 @@ First apply elimination to $F^T$, we get
 Thus $e_2 = (-1,0,1)^T$.
 Same, we can get $e_1$, because $e_1 \in null(F)$. $e_1 = (-2,-1,1)^T$
 
+####  Theoratical exercise 6
++ （1）
+
+We have:
+```math 
+  [t]_x^T[t]_x = (USV^T)^T(USV)= VSU^TUSV^T= VS^TSU = VS^2V^T
+```
+Therefore the eigenvalues of $[t]_x^T[t]_x$ are the squared singular values. 
+
++ (2)
+
