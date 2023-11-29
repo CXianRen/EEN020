@@ -1,0 +1,53 @@
+clf
+clc
+clear 
+close all
+
+
+
+addpath ./data/
+addpath ./code/
+
+load data/compEx1data.mat
+
+img_1= imread("data/kronan1.JPG");
+img_2 = imread('data/kronan2.JPG');
+
+N_1 = buildN(x{1})
+N_2 = buildN(x{2})
+
+% normalize x with N1 and N2
+x_1_n = N_1 * x{1};
+x_2_n = N_1 * x{1};
+
+% debug code start
+mean_before = mean(x{1}(1:2,:),2)
+mean_after = mean(x_1_n(1:2,:),2)
+% debug code end
+
+[S,F_n] = estimate_F_DLT(x_1_n,x_2_n);
+% the minimal singular value of M
+minimum_s = S(9:9)
+
+det_F_n = det(F_n)
+
+bF_n = enforce_fundamental(F_n);
+
+det_bF_n = det(bF_n)
+
+plot(diag(x_2_n'*bF_n*x_1_n));
+% compute the un_normalized fundamental matrix F
+F = N_2'*bF_n*N_1
+figure
+plot(diag(x{2}'*F*x{1}));
+
+l = F*x{1};
+l = l./sqrt(repmat(l(1,:).^2 +l(2,:).^2,[3 1]));
+
+imshow(img_2);
+hold on
+plot(x{2}(1,1:10),x{2}(2,1:10), '*');
+rital(l(:,[1:2]));
+axis equal
+hold off
+
