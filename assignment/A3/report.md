@@ -207,3 +207,187 @@ Therefore the eigenvalues of $[t]_x^T[t]_x$ are the squared singular values.
 
 + (2)
 
+
+####  Theoratical exercise 7
++ (1)
+
+```math
+UV^T=
+\begin{pmatrix}
+ -1/{\sqrt2} & -1/{\sqrt2} & 0 \\
+ -1/{\sqrt2} & 1/{\sqrt2} & 0 \\
+  0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ -1 & 0 & 0 \\
+ 0 & 0 & -1 \\
+  0 & 1 & 0
+\end{pmatrix}
+= 
+\begin{pmatrix}
+1/{\sqrt2} & 0 & 1/{\sqrt2} \\
+1/{\sqrt2} & 0 & -1/{\sqrt2} \\
+0 & 1 & 0 \\
+\end{pmatrix}
+```
+```math 
+det(UV^T) = (1/{\sqrt2}*0*0) + (0*-1/{\sqrt2}*0)+ (1/{\sqrt2} * 1/{\sqrt2} * 1) \\
+          - (1/{\sqrt2}*0 *0) - (0*1/{\sqrt2}*0) - (1/{\sqrt2} * -1/{\sqrt2} * 1)
+          = 1
+```
++ (2)
+
+```math
+  E=Udiag([1,1,0])V^T = 
+  \begin{pmatrix}
+ -1/{\sqrt2} & -1/{\sqrt2} & 0 \\
+ -1/{\sqrt2} & 1/{\sqrt2} & 0 \\
+  0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ 1 & 0 & 0 \\
+ 0 & 1 & 0 \\
+ 0 & 0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+ -1 & 0 & 0 \\
+ 0 & 0 & -1 \\
+  0 & 1 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+ 1/{\sqrt2} & 0 & 1/{\sqrt2} \\
+ 1/{\sqrt2} & 0 & -1/{\sqrt2} \\
+  0 & 0 & 0
+\end{pmatrix}
+```
+Becasue
+```math
+\begin{pmatrix}
+x_2^T \\
+1
+\end{pmatrix}^T 
+E
+\begin{pmatrix}
+x_1^T \\
+1
+\end{pmatrix}
+= 
+(1,-3,1) E (2,0,1)^T = 0
+```
+$x_1$ $x_2$ is a plausible correspondence.
+
++ (3)
+```math
+\begin{pmatrix}
+x_1^T \\
+1
+\end{pmatrix} 
+\sim
+P_1 X = [I|0]
+\begin{pmatrix}
+X_{(1:3,1)} \\
+X_{(4,1)}
+\end{pmatrix} 
+= 
+X_{(1:3,1)} +  0*X_{(4,1)}
+```
+Thus $X_{(4,1)}$ can be any value $s$, which means $X \in X(s)$
+
++ (4)
+
+From the context, we know:
+``` math
+\begin{pmatrix}
+x_2^T \\
+1
+\end{pmatrix}
+\sim 
+P_2X(s) = 
+P_{2_{(:,1:3)}} (2,0,1)^T + P_{2_{(:,4)}}s
+```
+And $u_3=(0,0,1)^T$.
+For $P_2=[UWV^T|u_3]$, we have:
+```math
+\begin{pmatrix}
+1 \\
+-3 \\
+1
+\end{pmatrix}
+\sim 
+\begin{pmatrix}
+1/{\sqrt2} & 0 & -1/{\sqrt2}\\
+-1/{\sqrt2} & 0 & -1/{\sqrt2} \\
+0 & 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+  2 \\ 
+  0 \\
+  1 
+\end{pmatrix}
++ 
+\begin{pmatrix}
+ 0 \\
+ 0 \\
+ 1
+\end{pmatrix}
+s=
+\begin{pmatrix}
+ 1/{\sqrt2} \\
+ -3/{\sqrt2} \\
+ s
+\end{pmatrix}
+```
+Thus $s=1/{\sqrt2}$
+
+For $[UWV^T|-u_3]$, same as above, we have
+```math 
+\begin{pmatrix}
+1 \\
+-3 \\
+1
+\end{pmatrix}
+\sim 
+\begin{pmatrix}
+ 1/{\sqrt2} \\
+ -3/{\sqrt2} \\
+ -s
+\end{pmatrix}
+```
+Thus $s=-1/\sqrt2$.
+
+For $[UW^TV^T|u_3]$:
+```math
+\begin{pmatrix}
+1 \\
+-3 \\
+1
+\end{pmatrix}
+\sim 
+\begin{pmatrix}
+-1/{\sqrt2} & 0 & 1/{\sqrt2}\\
+1/{\sqrt2} & 0 & 1/{\sqrt2} \\
+0 & 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+  2 \\ 
+  0 \\
+  1 
+\end{pmatrix}
++ 
+\begin{pmatrix}
+ 0 \\
+ 0 \\
+ 1
+\end{pmatrix}
+s=
+\begin{pmatrix}
+ -1/{\sqrt2} \\
+ 3/{\sqrt2} \\
+ s
+\end{pmatrix}
+```
+Thus $s = -1/\sqrt2$.
+Similar for $P_2=[UW^TV^T | -u_3]$, we can get $s=1/\sqrt2$.
+
+<!-- ? the first one and the forth one ? -->
