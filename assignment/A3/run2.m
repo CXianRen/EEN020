@@ -49,7 +49,7 @@ saveas(gcf,"c2_1.png");
 
 % compute the un_normalized fundamental matrix F
 F = convert_E_to_F(bE_n,K,K);
-%F = N_2'*bE_n*N_1;
+F = F ./ F(3,3)
 plot(diag(x{2}'*F*x{1}));
 title("C2:x_{2}F'x_{1}");
 saveas(gcf,"c2_2.png");

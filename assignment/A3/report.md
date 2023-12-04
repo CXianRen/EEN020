@@ -138,6 +138,70 @@ F = N_2^T\~FN_1
 ```
 
 ####  Computer exercise 1
+code run1.m is for this exercise. comment line 15-24 to run for part 1 and part 2. 
+##### Part 1
++ (1) normalization matrices $N_1$, $N_2$
+```matlab
+N_1 =
+
+    0.0024         0   -2.0255
+         0    0.0030   -2.0046
+         0         0    1.0000
+
+N_2 =
+
+    0.0022         0   -1.6745
+         0    0.0029   -1.9181
+         0         0    1.0000
+```
+
++ (2) estimate_F_DLT 
+
+normalized F
+```matlab
+  bF_n =
+      0.1532   13.3245  -35.0541
+    -16.0833   -0.7902  184.6120
+    40.9953 -186.5937    1.0000
+``` 
+verify $\~x_2^T\~F\~x_1=0$
+![img](./c1_1.png)
+
+unormalized $F$:
+```matlab
+  F =
+
+    -0.0000   -0.0000    0.0058
+      0.0000    0.0000   -0.0267
+    -0.0072    0.0263    1.0000
+```
+
++ (3) epiploar lines with points 
+
+![img](./c1_3.png)
+
+**mean distance: 0.3612**
+
+historgram with 100 bins
+![img](./c1_4.png)
+
+##### Part 2
++ (1) unormalized $F$:
+```matlab
+  F =
+   -0.0000   -0.0000    0.0058
+    0.0000    0.0000   -0.0266
+   -0.0072    0.0262    1.0000
+```
++ (2) 
+verify $\~x_2^T\~F\~x_1=0$
+
+![img](./c1_2-P2.png)
+
+**mean distance: 0.4878**
+
+historgram with 100 bins
+![img](./c1_4-P2.png)
 
 ####  Theoratical exercise 5
 
@@ -196,6 +260,9 @@ First apply elimination to $F^T$, we get
 Thus $e_2 = (-1,0,1)^T$.
 Same, we can get $e_1$, because $e_1 \in null(F)$. $e_1 = (-2,-1,1)^T$
 
+
+
+### The Essential Matrix
 ####  Theoratical exercise 6
 + （1）
 
@@ -207,6 +274,42 @@ Therefore the eigenvalues of $[t]_x^T[t]_x$ are the squared singular values.
 
 + (2)
 
+
+#### Computer exercise 2
+code file run2.m is for this exercise.
+ + (1) Essential matrix
+  ```matlab
+    bE_n =
+      0.0032    0.3619   -0.1357
+    -0.4507   -0.0282    0.8808
+      0.1701   -0.9176   -0.0004
+  ```
+ + (2) $\~x_2^TE\~x_1 = 0$
+
+  ![img](c2_1.png)
+
+ + (3) the fundamental matrix
+  ```matlab
+   F=
+     -0.0000   -0.0000    0.0066
+      0.0000    0.0000   -0.0303
+     -0.0082    0.0299    1.0000
+  ```
+
+  + (4) epiploar lines with points 
+  
+  ![img](./c2_3.png)
+
+  + (5) mean distance 2.0838
+
+  + (6) histogram 
+  
+  The distribution of the histogram about distance in computer exercise 2 is more dispersed than that in computer exercise 1.
+  |computer exercise 2|computer exercise 1|
+  |-|-|
+  |![img](./c2_4.png)|![img](./c1_4.png)|
+
+   
 
 ####  Theoratical exercise 7
 + (1)
@@ -391,3 +494,25 @@ Thus $s = -1/\sqrt2$.
 Similar for $P_2=[UW^TV^T | -u_3]$, we can get $s=1/\sqrt2$.
 
 <!-- ? the first one and the forth one ? -->
+
+
+####  Computer exercise 3
+code file run3.m is for this exercise.
+
++ (1)
+The forth one in 4 solutions is that the points are in front of the cameras.
+
+|P2_1|P2_2|P2_3|P2_4|
+|-|-|-|-|
+|![img](./c3_p2s_1.png)|![img](./c3_p2s_2.png)|![img](./c3_p2s_3.png)|![img](./c3_p2s_4.png)|
+
++ (2) project X into image.
+
+error is: 1.1927  
+![img](./c3_2.png)
+
++ (3)
+
+The result appears quite reasonable, with the lines maintaining the expected parallel and vertical relationship.
+
+![img](./c3_p2s_4.png)
