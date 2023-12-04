@@ -164,7 +164,8 @@ normalized F
     -16.0833   -0.7902  184.6120
     40.9953 -186.5937    1.0000
 ``` 
-verify $\~x_2^T\~F\~x_1=0$
+verify $\~x_2^T\~F\~x_1=0$  
+
 ![img](./c1_1.png)
 
 unormalized $F$:
@@ -194,9 +195,11 @@ historgram with 100 bins
    -0.0072    0.0262    1.0000
 ```
 + (2) 
-verify $\~x_2^T\~F\~x_1=0$
+verify $\~x_2^T\~F\~x_1=0$  
 
 ![img](./c1_2-P2.png)
+
+![img](./c1_3-P2.png)
 
 **mean distance: 0.4878**
 
@@ -500,11 +503,13 @@ Similar for $P_2=[UW^TV^T | -u_3]$, we can get $s=1/\sqrt2$.
 code file run3.m is for this exercise.
 
 + (1)
-The forth one in 4 solutions is that the points are in front of the cameras.
-
-|P2_1|P2_2|P2_3|P2_4|
-|-|-|-|-|
-|![img](./c3_p2s_1.png)|![img](./c3_p2s_2.png)|![img](./c3_p2s_3.png)|![img](./c3_p2s_4.png)|
+The forth one is the solution that the points are in front of both cameras.
+```matlab
+  P2 =
+    0.9944    0.0293    0.1017   -0.9223
+   -0.0311    0.9994    0.0161   -0.1422
+   -0.1011   -0.0191    0.9947   -0.3594
+```
 
 + (2) project X into image.
 
