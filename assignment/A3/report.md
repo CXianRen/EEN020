@@ -305,7 +305,7 @@ $[t]_x^T[t]_x - uI=0$, to get the eigenvalues.
 Let $t = (x,y,z)^T$, we have:
 ```math 
   \begin{align}
-    \|[t]_x^T[t]_x  - u I\| &= det(
+    |[t]_x^T[t]_x  - u I| &= det(
     \begin{pmatrix}
     z^2+y^2 - u & -xy & -xz \\
     -xy &  z^2+x^2 - u & -zy \\
