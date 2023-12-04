@@ -39,7 +39,7 @@ We can get $P_2$ camera center $C_2$:
 ```math 
   C_2 = -P_{2_{3,3}}^{-1}*P_{2_4} =  (1,-2,0)^T 
 ```
-Thus epopoles $e_1$:
+Thus epipoles $e_1$:
 ```math 
   e_1 = P_1 \begin{pmatrix} C_2 \\ 1 \end{pmatrix} = (I|0)
   \begin{pmatrix} C_2 \\ 1 \end{pmatrix} = C_2 = (1,-2,0)^T
