@@ -138,6 +138,70 @@ F = N_2^T\~FN_1
 ```
 
 ####  Computer exercise 1
+code run1.m is for this exercise. comment line 15-24 to run for part 1 and part 2. 
+##### Part 1
++ (1) normalization matrices $N_1$, $N_2$
+```matlab
+N_1 =
+
+    0.0024         0   -2.0255
+         0    0.0030   -2.0046
+         0         0    1.0000
+
+N_2 =
+
+    0.0022         0   -1.6745
+         0    0.0029   -1.9181
+         0         0    1.0000
+```
+
++ (2) estimate_F_DLT 
+
+normalized F
+```matlab
+  bF_n =
+      0.1532   13.3245  -35.0541
+    -16.0833   -0.7902  184.6120
+    40.9953 -186.5937    1.0000
+``` 
+verify $\~x_2^T\~F\~x_1=0$
+![img](./c1_1.png)
+
+unormalized $F$:
+```matlab
+  F =
+
+    -0.0000   -0.0000    0.0058
+      0.0000    0.0000   -0.0267
+    -0.0072    0.0263    1.0000
+```
+
++ (3) epiploar lines with points 
+
+![img](./c1_3.png)
+
+**mean distance: 0.3612**
+
+historgram with 100 bins
+![img](./c1_4.png)
+
+##### Part 2
++ (1) unormalized $F$:
+```matlab
+  F =
+   -0.0000   -0.0000    0.0058
+    0.0000    0.0000   -0.0266
+   -0.0072    0.0262    1.0000
+```
++ (2) 
+verify $\~x_2^T\~F\~x_1=0$
+
+![img](./c1_2-P2.png)
+
+**mean distance: 0.4878**
+
+historgram with 100 bins
+![img](./c1_4-P2.png)
 
 ####  Theoratical exercise 5
 
@@ -196,6 +260,9 @@ First apply elimination to $F^T$, we get
 Thus $e_2 = (-1,0,1)^T$.
 Same, we can get $e_1$, because $e_1 \in null(F)$. $e_1 = (-2,-1,1)^T$
 
+
+
+### The Essential Matrix
 ####  Theoratical exercise 6
 + （1）
 
