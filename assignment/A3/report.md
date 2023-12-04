@@ -128,7 +128,8 @@ Fe_1 = [t]_xAe_1 = [t]_xA (-{\lambda} A^{-1}t)  = [t]_xAA^{-1}t = t \times t = 0
 ```
 
 + (3)
-Because we know $e_1!=0$, and only when $det(F) = 0$, which means $F$ is a singluar matrix, there exist non-zero soultion for problem $Fe_1 = 0$.
+
+If problem $Fe_1=0$ has non-zeron solution, the determinant of F should be zero, and the rank should less than 3 ( rank(F)=2) 
 <!-- todo -->
 
 ####  Theoratical exercise 4
@@ -267,17 +268,61 @@ Same, we can get $e_1$, because $e_1 \in null(F)$. $e_1 = (-2,-1,1)^T$
 
 
 ### The Essential Matrix
-####  Theoratical exercise 6
+####  Theoratical exercise 6 (Optional)
 + （1）
 
 We have:
 ```math 
-  [t]_x^T[t]_x = (USV^T)^T(USV)= VSU^TUSV^T= VS^TSU = VS^2V^T
+  [t]_x^T[t]_x = (USV^T)^T(USV)= VSU^TUSV^T= VS^TSV = VS^2V^T
 ```
 Therefore the eigenvalues of $[t]_x^T[t]_x$ are the squared singular values. 
 
 + (2)
 
+From the question, we have:
+```math
+  -t \times (t \times w) = - [t]_x [t]_x \times w = [t]_x^T [t]_x w = \lambda w 
+```
+Therefore, $w$ is an eigenvector of $[t]_x^T [t]_x$ with eigenvalue $\lambda$.
+
++ (3)
+
+When $w=t$, we have:
+```math
+[t]_x^T[t]_x w = [t]_x^T [t]_x t = -t \times (t \times t) = 0 = \lambda t, (\lambda = 0)
+```
+Thus, when $w = t$ is an eigenvector of $[t]_x^T[t]_x$ with eigenvalue 0.
+
+Similar, when $w$ is perpendicular to $t$:
+```math
+-t \times (t \times w) = (-t \cdot w) t - (-t \cdot t) w = 0 - (-\|t\|^2) w =  \|t\|^2 w 
+```
+
++ (4)
+
+From (1), we know the eigenvalues of $[t]_x^T[t]_x$ are the squared singular values of $[t]_x$. Thus we can solve 
+$[t]_x^T[t]_x - uI=0$, to get the eigenvalues.
+Let $t = (x,y,z)^T$, we have:
+```math 
+  \begin{align}
+    \|[t]_x^T[t]_x  - u I\| &= det(
+    \begin{pmatrix}
+    z^2+y^2 - u & -xy & -xz \\
+    -xy &  z^2+x^2 - u & -zy \\
+    -xz & -zy &  y^2+x^2 - u 
+    \end{pmatrix})  \\
+    &= u^3 - u(x^2+y^2+z^2) = 0
+  \end{align}
+```
+Thus, the eignvalues are 0 and $\|t\|^2$.
+Thus, the sigular values are 0,  $-\|t\|$, $\|t\|$.
+
++ (5)
+
+``` math
+svd(E) = svd([t]_x)R
+```
+So, the sigular values of E is 0,  $-\|t\|$, $\|t\|$.
 
 #### Computer exercise 2
 code file run2.m is for this exercise.
