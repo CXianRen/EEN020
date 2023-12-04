@@ -23,26 +23,30 @@ P_2s = extract_P_from_E(bE_n);
 
 P_1 = [diag([1 1 1]) [0 0 0]']
 
-P_2 = P_2s{4};
-X = [];
-for i= 1: size(x_1_n,2)
-    X_i = triangulate_3D_point_DLT(x_1_n(:,i),x_2_n(:,i),P_1,P_2);
-    X = [X X_i];
+for Pi=1:size(P_2s,2)
+    P_2 = P_2s{Pi};
+    X = [];
+    for i= 1: size(x_1_n,2)
+        X_i = triangulate_3D_point_DLT(x_1_n(:,i),x_2_n(:,i),P_1,P_2);
+        X = [X X_i];
+    end
+    X=pflat(X);
+    plot3(X(1,:),X(2,:),X(3,:),'.' ,'color', 'g', 'MarkerSize',4);
+    hold on
+    plotcams({P_1});
+    plotcams({P_2});
+    hold off
+    axis equal
 end
-X=pflat(X);
-
-plot3(X(1,:),X(2,:),X(3,:),'.' ,'color', 'g', 'MarkerSize',4);
-hold on
-plotcams({P_1});
-plotcams({P_2});
-hold off
-axis equal
 
 
+P_2 = P_2s{4};
 P_2_dn= K*P_2;
 project_and_plot(P_2_dn,X,img_2);
 hold on
 plot(x{2}(1,1:end),x{2}(2,1:end), 'o', 'Color','b');
 hold off
+title("C3:project X to image");
+saveas(gcf,"c3_2.png");
 
 errors=eRMS(pflat(P_2_dn*X),x{2})
