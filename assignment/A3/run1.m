@@ -13,16 +13,16 @@ img_2 = imread('data/kronan2.JPG');
 
 % with normalization
 % % Part 1 start 
-% N_1 = buildN(x{1})
-% N_2 = buildN(x{2})
-% flag_str = ""
+N_1 = buildN(x{1})
+N_2 = buildN(x{2})
+flag_str = ""
 % Part 1 end
 
 % without normalization
 % Part 2 start 
-N_1 = [1 0 0; 0 1 0; 0 0 1];
-N_2 = [1 0 0; 0 1 0; 0 0 1];
-flag_str = "-P2"
+% N_1 = [1 0 0; 0 1 0; 0 0 1];
+% N_2 = [1 0 0; 0 1 0; 0 0 1];
+% flag_str = "-P2"
 % Part 2 end
 
 % normalize x with N1 and N2
@@ -64,7 +64,8 @@ l = F*x{1};
 random_index = randperm(size(x{2},2),20);
 imshow(img_2)
 hold on
-plot(x{2}(1,random_index),x{2}(2,random_index), '*', 'Color','r');
+plot(x{2}(1,random_index),x{2}(2,random_index), ...
+    '.', 'Color','r', 'MarkerSize',20);
 rital(l(:,random_index));
 hold off
 title("C1:random 20 points and epipolar lines" + flag_str);
