@@ -1,4 +1,4 @@
-# Assignment 2
+## Assignment 2
 + 2023-12-3
 + Honggang Chen, CID: chenhon 
 ---
@@ -91,6 +91,7 @@ Fe_1 =\begin{pmatrix}
 
 ####  Theoratical exercise 3（optional）
 + (1)
+
 Because
 ```math
 P_2 (C_2^T|1)^T = (A|t)(C_2^T|1)^T = 0 
@@ -208,7 +209,7 @@ historgram with 100 bins
 
 ####  Theoratical exercise 5
 
-let $x_1$,$x_2$ denotes the prjection of the scene point into $P_1$ and $P_2$ respectively.
+let $x_1$, $x_2$ denotes the prjection of the scene point into $P_1$ and $P_2$ respectively.
 Then we have 
 ```math 
 x_1 \sim  P_1 [X^T|1]^T = [I|0][X^T|1]^T = X
@@ -232,7 +233,7 @@ x_2^TFx_1  = 0
 ```
 The projection of these points will fulfill the epipolar constraints.
 
-let $C_2$ denotes $P_2$ camera center:
+Let $C_2$ denotes $P_2$ camera center:
 ```math
 P_2 \begin{pmatrix} C_2 \\ \mu \end{pmatrix} = [e_2]_xFC_2 + {\mu}e_2 = 0 
 ```
@@ -496,8 +497,15 @@ s=
 Thus $s = -1/\sqrt2$.
 Similar for $P_2=[UW^TV^T | -u_3]$, we can get $s=1/\sqrt2$.
 
-<!-- ? the first one and the forth one ? -->
+|P_2|$[UWV^T ,u_3]$|$[UWTV^T , -u_3]$|$[UW^TV^T , u_3]$|$[UW^TV^T , -u_3]$|
+|-|-|-|-|-|
+|s|$1/{\sqrt2}$ |$-1/{\sqrt2}$ | $-1/{\sqrt2}$|$1/{\sqrt2}$|
+|X |$(2{\sqrt2},0,{\sqrt2},1)^T$ | $(-2{\sqrt2},0,-{\sqrt2},1)^T$ |$(-2{\sqrt2},0,-{\sqrt2},1)^T$ |$(2{\sqrt2},0,{\sqrt2},1)^T$ |
+|$x_1 \sim P_1X$|$(2{\sqrt2},0,{\sqrt2})^T$ | $(-2{\sqrt2},0,-{\sqrt2})^T$ |$(-2{\sqrt2},0,-{\sqrt2})^T$|$(2{\sqrt2},0,{\sqrt2})^T$|
+|$x_2 \sim P_2X$|$(1,-3,1)^T$| - | - | $(-1,3,-1)^T$|
 
+We know that when 3D point $X(s)$ is in front of both cameras, the third elements of the its projective points on both cameras should be postive.
+So, with table above, the first $P_2$ is a valid one.
 
 ####  Computer exercise 3
 code file run3.m is for this exercise.
