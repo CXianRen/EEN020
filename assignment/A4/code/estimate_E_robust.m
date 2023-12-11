@@ -15,7 +15,7 @@ T = update_T(epsilon);
 err_threshold = err_threshold_pix/K(1,1);
 iteration_count = 0;
 iteration_real_count = 0;
-while iteration_count <= T
+while iteration_count <= T %&& iteration_count < 1000
     iteration_count = iteration_count +1;
     iteration_real_count = iteration_real_count +1;
 
@@ -36,7 +36,7 @@ while iteration_count <= T
         + compute_epipolar_errors(bE_n,x1,x2).^2)/2;
     
     % debug 
-    % histogram(errors,100);
+    histogram(errors,100);
     % debug
     
     inliners = errors< err_threshold^2;

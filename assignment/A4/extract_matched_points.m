@@ -15,6 +15,9 @@ addpath code
 img_1 = imread("data/fountain1.png");
 img_2 = imread("data/fountain2.png");
 
+% img_1 = imread("data/test1.jpg");
+% img_2 = imread("data/test2.jpg");
+
 [f1 d1] = vl_sift(single(rgb2gray(img_1)), 'PeakThresh', 1);
 [f2 d2] = vl_sift(single(rgb2gray(img_2)), 'PeakThresh', 1);
 
