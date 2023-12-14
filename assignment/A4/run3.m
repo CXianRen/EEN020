@@ -28,19 +28,27 @@ median_err_before = median(err_before)
 plot3(X(1,:),X(2,:),X(3,:),'x' ,'color', 'b', 'MarkerSize',4);
 hold on 
 
+
+last_delta_X_n = 0;
+
 for i=1:size(X,2)
-    for j=1:100
+     while true
         mu = 0.01;
         [r,J] = LinearizeReprojErr(P1,P2,X(:,i),x_1_n_f(:,i),x_2_n_f(:,i));
         delta_X = ComputeUpdate(r,J,mu);
         [err,~]=ComputeReprojectionError(P1,P2,X(:,i),x_1_n_f(:,i),x_2_n_f(:,i));
         [err_p,~]=ComputeReprojectionError(P1,P2,X(:,i)+delta_X,x_1_n_f(:,i),x_2_n_f(:,i));
         if err_p< err
-            X(:,i) = X(:,i) + delta_X;
-            mu = mu/10;
+           X(:,i) = X(:,i) + delta_X;
+           mu = mu/10;
         else
            mu = mu*10;
-        end 
+        end
+        delta_delta_X = delta_X' * delta_X;
+        if abs(last_delta_X_n - delta_delta_X) < 1e-10
+            break
+        end
+        last_delta_X_n = delta_delta_X;
     end
 end
 
