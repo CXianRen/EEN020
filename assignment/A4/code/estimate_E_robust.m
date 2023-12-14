@@ -4,7 +4,7 @@ function [best_E,epsilon,inliers_idx] = estimate_E_robust(K,x1,x2)
 alpha = 0.99;
 % initial inliner fraction
 epsilon = 0.1;
-% TODO the size of subset should be?
+% the size of subset should be?
 sample_point_num = 8;
 err_threshold_pix = 2;
 
@@ -36,7 +36,7 @@ while iteration_count <= T %&& iteration_count < 1000
         + compute_epipolar_errors(bE_n,x1,x2).^2)/2;
     
     % debug 
-    histogram(errors,100);
+    % histogram(errors,100);
     % debug
     
     inliners = errors< err_threshold^2;

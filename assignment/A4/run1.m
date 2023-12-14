@@ -37,12 +37,15 @@ erms = rms(sqrt((compute_epipolar_errors(F',x{2},x{1}).^2 + compute_epipolar_err
 epipolar_errors_l1 = compute_epipolar_errors(F',x{2},x{1});
 mean_error_l1 = mean(epipolar_errors_l1)
 histogram(epipolar_errors_l1,100);
-
+title("x1-epipolar-errors")
+saveas(gcf,"c1-1-x1-epipolar-errors.png");
 
 % l2, image 2
 epipolar_errors_l2 = compute_epipolar_errors(F,x{1},x{2});
 mean_error_l2 = mean(epipolar_errors_l2)
 histogram(epipolar_errors_l2,100);
+title("x2-epipolar-errors")
+saveas(gcf,"c1-1-x2-epipolar-errors.png");
 
 % random 20 points 
 l1 = F'*x{2};
@@ -52,15 +55,20 @@ random_20_index = randperm(size(x{2},2),20);
 
 imshow(img_1);
 hold on
-plot(x{1}(1,random_20_index),x{1}(2,random_20_index),'*');
+plot(x{1}(1,random_20_index),x{1}(2,random_20_index),'*','Color','r' ,'MarkerSize', 10);
 rital(l1(:,random_20_index));
 hold off
+title("x1-img1-20-random-points")
+saveas(gcf,"c1-2-x1-img1-20-random-points.png");
+
 
 imshow(img_2);
 hold on
-plot(x{2}(1,random_20_index),x{2}(2,random_20_index),'*');
+plot(x{2}(1,random_20_index),x{2}(2,random_20_index),'*','Color','r' ,'MarkerSize', 10);
 rital(l2(:,random_20_index));
 hold off
+title("x2-img2-20-random-points")
+saveas(gcf,"c1-2-x2-img2-20-random-points.png");
 
 imagesc([img_1 img_2]);
 hold on
@@ -76,6 +84,8 @@ ransac_F = convert_E_to_F(ransac_E,K,K);
 ransac_F = ransac_F ./ ransac_F(3,3);
 ransac_l1 = ransac_F'*x{2};
 ransac_l2 = ransac_F*x{1};
+epsilon
+inliner_number=size(inliers_idx,2)
 
 %plot(diag(x{2}'*F*x{1}));
 
@@ -88,31 +98,48 @@ ransac_erms = rms(sqrt((compute_epipolar_errors(ransac_F',x{2},x{1}).^2 ...
 ransac_epipolar_errors_l1 = compute_epipolar_errors(ransac_F',x{2},x{1});
 ransac_mean_error_l1 = mean(ransac_epipolar_errors_l1)
 histogram(ransac_epipolar_errors_l1,100);
+title("(RANSAC)-x1-epipolar-errors")
+saveas(gcf,"c1-3-x1-epipolar-errors-(RANSAC).png");
 
 % l2, image 2
 ransac_epipolar_errors_l2 = compute_epipolar_errors(ransac_F,x{1},x{2});
 ransac_mean_error_l2 = mean(ransac_epipolar_errors_l2)
 histogram(ransac_epipolar_errors_l2,100);
+title("(RANSAC)-x2-epipolar-errors")
+saveas(gcf,"c1-3-x2-epipolar-errors-(RANSAC).png");
 
 
 % plot 20 random inlier.
 random_20_inlier_index = randperm(size(inliers_idx,2),20);
+% img 1
+imshow(img_1);
+hold on
+plot(x{1}(1,inliers_idx(1,random_20_inlier_index)), ...
+    x{1}(2,inliers_idx(1,random_20_inlier_index)),'*','color','r','MarkerSize',10);
+rital(ransac_l1(:,inliers_idx(1,random_20_inlier_index)));
+hold off
+title("x1-img1-20-random-inliner-points")
+saveas(gcf,"c1-3-x1-img1-20-random-inliner-points.png");
+
 % img 2
 imshow(img_2);
 hold on
-plot(x{2}(1,inliers_idx(1,random_20_inlier_index)),x{2}(2,inliers_idx(1,random_20_inlier_index)),'*');
+plot(x{2}(1,inliers_idx(1,random_20_inlier_index)), ...
+    x{2}(2,inliers_idx(1,random_20_inlier_index)),'*','color','r','MarkerSize',10);
 rital(ransac_l2(:,inliers_idx(1,random_20_inlier_index)));
 hold off
- 
+title("x2-img2-20-random-inliner-points")
+saveas(gcf,"c1-3-x2-img2-20-random-inliner-points.png");
 
 %%% debug %%%%
-[P2,X]= get_P2_and_X_from_E(ransac_E,x_1_n(:,inliers_idx),x_2_n(:,inliers_idx));
-
-plot3(X(1,:),X(2,:),X(3,:),'.' ,'color', 'b', 'MarkerSize',4);
-hold on
-plotcams({[diag([1 1 1]) [0 0 0]']});
-plotcams({P2});
-axis equal
-hold off
+% plot the 3D reconstruction
+% [P2,X]= get_P2_and_X_from_E(ransac_E,x_1_n(:,inliers_idx),x_2_n(:,inliers_idx));
+% 
+% plot3(X(1,:),X(2,:),X(3,:),'.' ,'color', 'b', 'MarkerSize',4);
+% hold on
+% plotcams({[diag([1 1 1]) [0 0 0]']});
+% plotcams({P2});
+% axis equal
+% hold off
 
 

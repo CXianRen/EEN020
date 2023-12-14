@@ -32,6 +32,75 @@ we need at least 7 point correspondences to determine E. But by the eight point 
 
 ####  Computer exercise 1
 
++ RMS (with all points)
+
+```matlab
+erms =
+
+  155.9583
+
+
+mean_error_l1 =
+
+   61.3336
+
+
+mean_error_l2 =
+
+   63.4689
+```
+
++ histograms with 100 bins for the epipolar errors in both images
+
+![img](./c1-1-x1-epipolar-errors.png)
+![img](./c1-1-x2-epipolar-errors.png)
+
++ 20 points and epiploar lines in both image
+
+Not all points are close to the epipolar lines. And the plots look unreasonable. 
+![img](./c1-2-x1-img1-20-random-points.png)
+![img](./c1-2-x2-img2-20-random-points.png)
+
+
++ Using RANSAC, We get 5516 inliners
+
+```matlab
+inliner_number =
+
+        5516
+```
+
++ RMS (RANSAC)
+
+```matlab
+ransac_erms =
+
+  209.5010
+
+
+ransac_mean_error_l1 =
+
+   58.9546
+
+
+ransac_mean_error_l2 =
+
+   71.7826
+```
+
++ histograms with 100 bins for the epipolar errors in both images (RANSAC). The second (E estimated by RANSAC) version is better, because 
+the error distribution is more concentrated. Although, the RMS error and mean epipolar error are larger than before. (it is because when we calculated the RMS and mean error with data including outlier.)
+
+![img](./c1-3-x1-epipolar-errors-(RANSAC).png)
+![img](./c1-3-x2-epipolar-errors-(RANSAC).png)
+
++ 20 points (pick from inliners) and epiploar lines in both image
+
+![img](./c1-3-x1-img1-20-random-inliner-points.png)
+
+![img](./c1-3-x2-img2-20-random-inliner-points.png)
+
+
 ####  Computer exercise 2
 
 ### Levenberg-Marquardt for Structure from Motion Problems
