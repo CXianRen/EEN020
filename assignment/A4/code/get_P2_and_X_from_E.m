@@ -1,4 +1,4 @@
-function [P_2,X] = get_P2_and_X_from_E(E,x_1_n,x_2_n)
+function [P_2,X, P_2s, Xs] = get_P2_and_X_from_E(E,x_1_n,x_2_n)
 %GET_P2_X_FROM( Summary of this function goes here
 
 P_1 = [diag([1 1 1]) [0 0 0]'];
@@ -7,7 +7,6 @@ best_P2_idx = 1;
 best_point_count = 0;
 
 P_2s = extract_P_from_E(E);
-
 for Pi=1:size(P_2s,2)
     X = [];
     for i= 1: size(x_1_n,2)
@@ -15,6 +14,7 @@ for Pi=1:size(P_2s,2)
         X = [X X_i];
     end
     X=pflat(X);
+    Xs{Pi} = X;
     % evaluate P2
     x1 = P_1 * X;
     x2 = P_2s{Pi} *X;

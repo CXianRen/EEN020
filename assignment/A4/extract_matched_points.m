@@ -21,6 +21,9 @@ img_2 = imread("data/fountain2.png");
 [f1 d1] = vl_sift(single(rgb2gray(img_1)), 'PeakThresh', 1);
 [f2 d2] = vl_sift(single(rgb2gray(img_2)), 'PeakThresh', 1);
 
+f1_size = size(f1,2)
+f2_size = size(f2,2)
+
 % debug
 imshow(img_1)
 hold on 
@@ -30,6 +33,8 @@ hold off
 %
 
 [matches, scores] = vl_ubcmatch(d1,d2);
+
+matches_size = size(matches)
 
 x1 = [f1(1,matches(1,:)); f1(2,matches(1,:))];
 x2 = [f2(1,matches(2,:)); f2(2,matches(2,:))];

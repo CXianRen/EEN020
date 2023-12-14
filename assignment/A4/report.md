@@ -18,6 +18,7 @@ Thus, $P_2' = P_2 H = [R_2 R_1^T | -R_2 R_1^T t_1 + t_2]$.
 Let $R_2'$ denotes $R_2 R_1^T$, $t_2'$ denotes $-R_2 R_1^T t_1 + t_2$. The essential matrix will be $E=[t_2']_x R_2' = [-R_2 R_1^T t_1 + t_2]_x R_2R_1^T$.
 
 ####  Theoratical exercise 2
+run1.m is for this exercise.
 + (1)
   
 An essential matrix has 5 degrees of freedom.
@@ -102,6 +103,18 @@ the error distribution is more concentrated. Although, the RMS error and mean ep
 
 
 ####  Computer exercise 2
+run2.m and extract_matched_points.m are for this exercise
+
++ (1) we get 26372 fetatures for image-1, 25600 for image-2, and 2161 macthes 
+
++ (2) we get 1452 inliers.
+
++ (3) 4 solution
+
+![img](./c2-4-possibile-soulutions.png)
+
+from figures above, the first soulution is correct to me. 
+
 
 ### Levenberg-Marquardt for Structure from Motion Problems
 

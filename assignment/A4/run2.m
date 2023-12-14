@@ -20,7 +20,7 @@ load data/compEx2data.mat
 % K=[fx,0,cx; 0, fx , cy; 0, 0, 1];
 %
 
-% run extract_matched_points.m to getr x1 and x2
+% run extract_matched_points.m to get x1 and x2
 load matched_points.mat
 x1 = [x1; ones(1,size(x1,2))];
 x2 = [x2; ones(1,size(x2,2))];
@@ -30,8 +30,8 @@ x2 = [x2; ones(1,size(x2,2))];
 x_1_n = inv(K) * x1;
 x_2_n = inv(K) * x2;
 
-plot(x_1_n(1,:),x_1_n(2,:),'+');
-plot(x_2_n(1,:),x_2_n(2,:),'+');
+% plot(x_1_n(1,:),x_1_n(2,:),'+');
+% plot(x_2_n(1,:),x_2_n(2,:),'+');
 
 [ransac_E,epsilon, inliers_idx] = estimate_E_robust(K,x_1_n,x_2_n);
 ransac_F = convert_E_to_F(ransac_E,K,K);
@@ -40,20 +40,27 @@ ransac_l1 = ransac_F'*x2;
 ransac_l2 = ransac_F*x1;
 
 epsilon
+inliers_size = size(inliers_idx,2)
 
 %plot(diag(x{2}'*F*x{1}));
 
 
 %%% debug %%%%
-[P2,X]= get_P2_and_X_from_E(ransac_E,x_1_n(:,inliers_idx),x_2_n(:,inliers_idx));
-
-plot3(X(1,:),X(2,:),X(3,:),'.' ,'color', 'b', 'MarkerSize',4);
-hold on
+[P2,X,P2s,Xs]= get_P2_and_X_from_E(ransac_E,x_1_n(:,inliers_idx),x_2_n(:,inliers_idx));
 P1= [diag([1 1 1]) [0 0 0]'];
+
+
+for i=1:4
+subplot(1,4,i)
+plot3(Xs{i}(1,:),Xs{i}(2,:),Xs{i}(3,:),'.' ,'color', 'b', 'MarkerSize',4);
+hold on
 plotcams({P1});
-plotcams({P2});
+plotcams({P2s{i}});
 axis equal
 hold off
+end
+
+saveas(gcf,"c2-4-possibile-soulutions.png");
 
 x_1_n_f=x_1_n(:,inliers_idx);
 x_2_n_f=x_2_n(:,inliers_idx);
