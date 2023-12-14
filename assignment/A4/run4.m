@@ -10,24 +10,24 @@ addpath ./code/
 load data/compEx3data.mat
 
 % % combination 1
-X_std_err = 0.1;
-x_n_std_err = 3;
+% X_std_err = 0;
+% x_n_std_err = 10;
 
 % % combination 2
 % X_std_err = 0.2;
 % x_n_std_err = 3;
-% 
+
 % % combination 3
 % X_std_err = 0.1;
 % x_n_std_err = 6;
-% 
+
 % % combination 4
-% X_std_err = 0;
-% x_n_std_err = 10;
+% X_std_err = 0.1;
+% x_n_std_err = 3;
 
 % % combination 5
-% X_std_err = 0.5;
-% x_n_std_err = 0;
+X_std_err = 0.5;
+x_n_std_err = 0;
 
 X_noise = randn(3,size(X,2)) * X_std_err; 
 x_1_noise = randn(2,size(X,2)) * x_n_std_err;
@@ -89,9 +89,9 @@ end
 sum_err_before = sum(err_before)
 median_err_before = median(err_before)
 
-
+last_delta_X_n = 0;
 for i=1:size(X,2)
-    for j=1:100
+    while true
         mu = 0.01;
         [r,J] = LinearizeReprojErr(P1,P2,X(:,i),x_1_n_f(:,i),x_2_n_f(:,i));
         delta_X = ComputeUpdate(r,J,mu);
@@ -103,6 +103,11 @@ for i=1:size(X,2)
         else
            mu = mu*10;
         end 
+        delta_delta_X = delta_X' * delta_X
+        if abs(last_delta_X_n - delta_delta_X) < 1e-10
+            break
+        end
+        last_delta_X_n = delta_delta_X;
     end
 end
 
@@ -120,5 +125,6 @@ plot3(X(1,:),X(2,:),X(3,:),'+' ,'color', 'g', 'MarkerSize',3);
 axis equal
 title("X (blue), X with noise (red), X optimized (green)")
 hold off
+
 
 
