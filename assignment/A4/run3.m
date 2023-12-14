@@ -52,10 +52,10 @@ end
 sum_err_after = sum(err_after)
 median_err_after = median(err_after)
 
-
 plot3(X(1,:),X(2,:),X(3,:),'+' ,'color', 'r', 'MarkerSize',4);
-
 axis equal
 hold off
+title("reconstruction with (blue) and without optimization (Red)")
+saveas(gcf,"c3-reconstruction_with-without-optimization.png");
 
 

@@ -179,8 +179,26 @@ diemnsions of $r(X_j)$ and $J(X_j)$ is $2m$.
 
 
 ####  Computer exercise 3
+run3.m is for this computer exercise.
+
++ (1) the error before and after, there is no significant 
+different in 3D points, but from the error, we can notice that there is a slight improvment.
+
+```matlab
+sum_err_before = 0.0029
+
+median_err_before = 1.5261e-06
+
+sum_err_after = 0.0028
+
+median_err_after = 1.4656e-06
+```
+![img](./c3-reconstruction_with-without-optimization.png)
 
 ####  Computer exercise 4 (Optional)
+run4.m is for this exercise.
+
+
 
 ####  Theoratical exercise 4 (Optional)
 
