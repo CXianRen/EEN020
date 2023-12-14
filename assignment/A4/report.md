@@ -25,7 +25,7 @@ An essential matrix has 5 degrees of freedom.
 
 + (2)
 
-we need at least 7 point correspondences to determine E. But by the eight point solver we need 8 point correspondences. 
+we need at least 5 point correspondences to determine E(5 points method). But by the eight point solver we need 8 point correspondences. 
 
 + (3)
 
@@ -175,14 +175,14 @@ Thus we have:
 ```math
 \sum^{m}_{i=1} \|r_i(X_j)+J_i(X_j){\delta} X_j \|^2 = \sum^{m}_{i=1} e_{2i-1}^2+e_{2i}^2 = [e_1,e_2,...,e_{2k-1},e_{2k}]^T [e_1,e_2,...,e_{2k-1},e_{2k}] = \|r(X_j)+J(X_j){\delta} X_j \|^2
 ```
-diemnsions of $r(X_j)$ and $J(X_j)$ is $2m$.
+diemnsions of $r(X_j)$ and $J(X_j)$ is $(2m,4)$.
 
 
 ####  Computer exercise 3
 run3.m is for this computer exercise.
 
 + (1) the error before and after, there is no significant 
-different in 3D points, but from the error, we can notice that there is a slight improvment.
+different in 3D points, but from the error, we can notic that there is a slight improvment.
 
 ```matlab
 sum_err_before = 0.0029
@@ -198,15 +198,25 @@ median_err_after = 1.4656e-06
 ####  Computer exercise 4 (Optional)
 run4.m is for this exercise.
 
+|X_std_err |x_std_err|total error before |median error before|total error after |median error after|
+|-|-|-|-|-|-|
+|0 | 10|896.3795|0.3724| 0.0028|1.4656e-06|
+|0.1|3| 995.0885 |0.4541|0.0028|1.4656e-06|
+|0.1|6| 998.3811 |0.4519 | 0.0028 | 1.4656e-06 |
+|0.2|3|1.3098e+03 |0.5629|0.0028| 1.4656e-06 | 
+|0.5|0| 1.7914e+05| 1.1307|1.9226e+04|1.5039e-06|
 
+
+from the table above, we can notic that for most noise case, LM solver can acheive pretty good result, the total error after and median error after can is same for the first fort combination case. The solver failed to get a good result when X_std_err larger than 0.5 (row 5 in table).
 
 ####  Theoratical exercise 4 (Optional)
 
 + (1)
 
 ```math
-\nabla F(v)^T d = \nabla F(v)^T M \nabla F(v) = - \nabla F(v)^T M \nabla F(v) < 0
+\nabla F(v)^T d = -\nabla F(v)^T M \nabla F(v)  < 0
 ```
+since M is postive define. Therefore, d is a descent direction for F at v.
 
 + (2)
 
@@ -217,5 +227,7 @@ d = −(J(v)^T J(v) + \mu I)^{-1} J(v)^Tr(v)
 
 Then:
 ```math
--\nabla r(v)^T (J(v)^T J(v) + \mu I)^{-1}J(v)^Tr(v)
+\nabla F(v) d =  \nabla(r(v)*r(v)^T) (J(v)^T J(v) + \mu I)^{-1}J(v)^Tr(v) = \\
+-2 r(v)^T J(v) (J(v)^T J(v) + \mu I)^{-1}J(v)^Tr(v)
 ```
+$(J(v)^T J(v) + \mu I) > 0$ since $\mu>0$, and $J(v)$ is postive define, let $J(v)^Tr(v)$ see as $w$, then we have $\nabla F(v) d < 0$. Thus the update chosen in LM is a descent direction for the $F(v)$.
