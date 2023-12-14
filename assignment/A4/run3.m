@@ -44,7 +44,7 @@ for i=1:size(X,2)
         else
            mu = mu*10;
         end
-        delta_delta_X = delta_X' * delta_X
+        delta_delta_X = delta_X' * delta_X;
         if abs(last_delta_X_n - delta_delta_X) < 1e-10
             break
         end
