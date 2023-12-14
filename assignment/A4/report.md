@@ -30,6 +30,9 @@ we need at least 7 point correspondences to determine E. But by the eight point 
 
 44 iterations we need.
 
+####  Computer exercise 1
+
+####  Computer exercise 2
 
 ### Levenberg-Marquardt for Structure from Motion Problems
 
@@ -92,3 +95,27 @@ Thus we have:
 ```
 diemnsions of $r(X_j)$ and $J(X_j)$ is $2m$.
 
+
+####  Computer exercise 3
+
+####  Computer exercise 4 (Optional)
+
+####  Theoratical exercise 4 (Optional)
+
++ (1)
+
+```math
+\nabla F(v)^T d = \nabla F(v)^T M \nabla F(v) = - \nabla F(v)^T M \nabla F(v) < 0
+```
+
++ (2)
+
+from (10), we know
+```math 
+d = −(J(v)^T J(v) + \mu I)^{-1} J(v)^Tr(v)
+```
+
+Then:
+```math
+-\nabla r(v)^T (J(v)^T J(v) + \mu I)^{-1}J(v)^Tr(v)
+```
