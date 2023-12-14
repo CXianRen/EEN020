@@ -175,7 +175,7 @@ Thus we have:
 ```math
 \sum^{m}_{i=1} \|r_i(X_j)+J_i(X_j){\delta} X_j \|^2 = \sum^{m}_{i=1} e_{2i-1}^2+e_{2i}^2 = [e_1,e_2,...,e_{2k-1},e_{2k}]^T [e_1,e_2,...,e_{2k-1},e_{2k}] = \|r(X_j)+J(X_j){\delta} X_j \|^2
 ```
-diemnsions of $r(X_j)$ and $J(X_j)$ is $(2m,4)$.
+dimensions of $r(X_j)$ is $(2m,1) $and $J(X_j)$ is $(2m,4)$.
 
 
 ####  Computer exercise 3
