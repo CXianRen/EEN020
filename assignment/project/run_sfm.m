@@ -20,7 +20,7 @@ skip_step_3 = true;
 
 
 % read data set info
-[K, img_names, init_pair, pixel_threshold] = get_dataset_info(2);
+[K, img_names, init_pair, pixel_threshold] = get_dataset_info(3);
 
 %%%% step 1, to calculate relative R. %%%%%
 if skip_step_1
@@ -118,7 +118,7 @@ for i=1:size(img_names,2)
 
     % 2 points method (TODO)
     % method (simpilify) calculate camera DLT in CE2
-      [Pi, ~] = estimate_T_robust(xi,Xi,K);
+%       [Pi, ~] = estimate_T_robust(xi,Xi,K);
       [Ps{i}, inliers_t_idx] = estimate_T_robust_2p(xi,Xi,K,R_s_abs{i});
 %      P1 = estimate_camera_DLT(inv(K)*xm(:,random_index),Xi(:,random_index));
 
@@ -145,8 +145,8 @@ for i=1:size(img_names,2)
     hold on 
     plot(xi_p(1,inliers_t_idx),xi_p(2,inliers_t_idx),'o', Color='b');
     hold off
-    
 end
+
 subplot(1,2,1);
 imshow(desc_img)
 subplot(1,2,2);

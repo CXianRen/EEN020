@@ -18,7 +18,15 @@ function T = estimate_T_DLT(R,x,X)
           R(2,:)*X1-x1(2)* R(3,:)*X1; ...
           R(1,:)*X2-x2(1)* R(3,:)*X2; ...
           R(2,:)*X2-x2(2)* R(3,:)*X2];
-
-    T = M\b;
+% method 1
+%     T = M\b;
+% method 2
+    M=[M -b];
+    [~,~,V] = svd(M);
+    v= V(:,end);
+    if v(end) ~=1
+        v = v/v(end);
+    end
+    T= v(1:3);
 end
 
