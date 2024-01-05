@@ -6,7 +6,7 @@ alpha = 0.99;
 epsilon = 0.1;
 % the size of subset should be?
 sample_point_num = 8;
-err_threshold_pixel = 2;
+err_threshold_pixel = 1;
 
 update_T = @(epsilon) ceil(log10(1-alpha)/(log10(1-epsilon^sample_point_num)));
 
