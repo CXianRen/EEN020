@@ -5,13 +5,21 @@ function [R1, t1, R2, t2] = homography_to_RT(H, x1, x2)
     ra = a * denom; rb = b * denom;
   end
 
-  #if det(H) < 0  H *= -1;  end
-  # Check the right sign for H
+  if det(H) < 0
+      H =H*-1;
+  end
+  % Check the right sign for H
   N = size(x1, 2);
-  if size(x1, 1) != 3   x1 = [x1; ones(1, N)]; end
-  if size(x2, 1) != 3   x2 = [x2; ones(1, N)]; end
+  if size(x1, 1) ~= 3
+      x1 = [x1; ones(1, N)]; 
+  end
+  if size(x2, 1) ~= 3
+      x2 = [x2; ones(1, N)];
+  end
   positives = sum((sum(x2 .* (H*x1), 1)) > 0);
-  if positives < N/2   H *= -1; end
+  if positives < N/2
+      H =H * -1; 
+  end
 
   [U,S,V] = svd(H);
   s1 = S(1,1)/S(2,2);
@@ -29,8 +37,15 @@ function [R1, t1, R2, t2] = homography_to_RT(H, x1, x2)
   R2 = U*[c,0,-d; 0,1,0; d,0,c]*V';
   t1 = e*v1+f*v3;
   t2 = e*v1-f*v3;
-  if (n1(3)<0) t1 = -t1; n1 = -n1; end;
-  if (n2(3)<0) t2 = -t2; n2 = -n2; end;
+  if (n1(3)<0) 
+      t1 = -t1; 
+      n1 = -n1; 
+  end
+
+  if (n2(3)<0) 
+      t2 = -t2; 
+      n2 = -n2; 
+  end
 
   % Move from Triggs' convention H = R*(I - t*n') to H&Z notation H = R - t*n'
   t1 = R1*t1;
@@ -43,4 +58,4 @@ function [R1, t1, R2, t2] = homography_to_RT(H, x1, x2)
   % Verify that we obtain the initial homography back
   %H /= S(2,2);
   %[norm(R1 - zeta*t1*n1' - H), norm(R2 - zeta*t2*n2' - H)]
-end;
+end
