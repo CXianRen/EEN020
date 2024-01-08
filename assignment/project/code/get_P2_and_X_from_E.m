@@ -27,11 +27,12 @@ end
 
 P_2 = P_2s{best_P2_idx};
 % re compute the X after we have the best P_2
-X = [];
-for i= 1: size(x_1_n,2)
-    X_i = triangulate_3D_point_DLT(x_1_n(:,i),x_2_n(:,i),P_1,P_2);
-    X = [X X_i];
-end
-X=pflat(X);
+% X = [];
+% for i= 1: size(x_1_n,2)
+%     X_i = triangulate_3D_point_DLT(x_1_n(:,i),x_2_n(:,i),P_1,P_2);
+%     X = [X X_i];
+% end
+% X=pflat(X);
+X=Xs{best_P2_idx};
 end
 

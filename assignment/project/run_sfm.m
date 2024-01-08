@@ -10,26 +10,61 @@ vl_setup()
 addpath ./data/
 addpath ./code/
 
+rng(42);
+
+skip_step_0 = true;
 skip_step_1 = true;
 skip_step_2 = true;
 skip_step_3 = true;
 skip_step_4 = true;
 
-% skip_step_1 = false;
-% skip_step_2 = false;
-% skip_step_3 = false;
-% skip_step_4 = false;
+skip_step_0 = false;
+skip_step_1 = false;
+skip_step_2 = false;
+skip_step_3 = false;
+skip_step_4 = false;
 
-
-
+data_set_id = 2;
+fprintf("####Loading dataset %d###\n", data_set_id);
 
 % read data set info
-[K, img_names, init_pair, pixel_threshold] = get_dataset_info(2);
+[K, img_names, init_pair, pixel_threshold] = get_dataset_info(data_set_id);
+
+%%%% step 0, extra feature.%%%%
+fprintf("####Running step 0, do vl_sift to all images.####\n");
+
+if skip_step_0
+    fprintf("Skip step 0 by config.\n");
+    load("step_0.mat");
+else
+    tic;
+
+    fs=cell(1,size(img_names,2));
+    ds=cell(1,size(img_names,2));
+    for i=1:size(img_names,2)
+        image_i = imread(img_names{i});
+        [fi di] = vl_sift(single(rgb2gray(image_i)), 'PeakThresh', 1);
+        fs{i} = fi;
+        ds{i} = di;
+    end
+
+    elapsedTime = toc;
+    fprintf("Step 0 done in %s second.\n", elapsedTime);
+
+    save("step_0.mat","fs","ds");
+end
+
+
+
 
 %%%% step 1, to calculate relative R. %%%%%
+fprintf("####Running step 1, to calculate relative rotation.####\n");
+
 if skip_step_1
+    fprintf("Skip step 1 by config.\n");
     load("step_1.mat");
 else
+    tic; 
 
     R_s = cell(1,size(img_names,2));
     R_s{1} = [1 0 0; 0 1 0; 0 0 1];
@@ -39,11 +74,17 @@ else
      [R,T] = step_1(image_1,image_2,K);
      R_s{i+1} = R;
     end 
+    
+    elapsedTime = toc;
+    fprintf("Step 1 done in %s second.\n", elapsedTime);
     save("step_1.mat","R_s");
 end 
 
 %%%%% step 2, update R to absolute rotations %%%%%
+fprintf("####Running step 2, update R to absolute rotations.####\n");
+
 if skip_step_2
+    fprintf("Skip step 2 by config.\n");
     load("step_2.mat");
 else
     R_s_abs = cell(1, size(R_s,2));
@@ -55,14 +96,22 @@ else
 end
 
 %%%% step 3, reconstruct inital 3D points from an initial image pair %%%%
+fprintf("####Running step 3, reconstruct inital 3D points from an initial image pair.####\n");
+
 if skip_step_3
+    fprintf("Skip step 3 by config.\n");
     load("step_3.mat");
 else
+    tic;
+
     image_1 = imread(img_names{init_pair(1)});
     image_2 = imread(img_names{init_pair(2)});
     % extrac initial matched points
-    [f1 d1] = vl_sift(single(rgb2gray(image_1)), 'PeakThresh', 1);
-    [f2 d2] = vl_sift(single(rgb2gray(image_2)), 'PeakThresh', 1);
+    f1 = fs{init_pair(1)};
+    d1 = ds{init_pair(1)};
+    f2 = fs{init_pair(2)};
+    d2 = ds{init_pair(2)};
+    
     [matches, scores] = vl_ubcmatch(d1,d2);
     x1 = [f1(1,matches(1,:)); f1(2,matches(1,:)); ones(1,size(f1(2,matches(1,:)),2))];
     x2 = [f2(1,matches(2,:)); f2(2,matches(2,:)); ones(1,size(f2(2,matches(2,:)),2))];
@@ -71,9 +120,8 @@ else
     x1_normalized = inv(K)*x1;
     x2_normalized = inv(K)*x2;
     [E, epsilon, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized);
-    [P2,X,P2s,Xs]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
+    [P2,X,P2s,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
     % center X (TODO)
-    % bring X to world cooridnates. 
     %% improve X with LM (will the result be better?)
     P1=[1 0 0 0; 0 1 0 0; 0 0 1 0];
     x_1_n_f = x1_normalized(:,inliers_idx);
@@ -101,8 +149,10 @@ else
     end
 
     %%
+    elapsedTime = toc;
+    fprintf("Step 3 done in %s second.\n", elapsedTime);
 
-
+    % bring X to world cooridnates. 
     X_0 = R_s_abs{init_pair(1)}' * X(1:3,:);  % TODO WHY?
     % X_0 = X(1:3,:);
     % save inlier desc_X 
@@ -122,9 +172,13 @@ else
     % 
 end
 %%%% step 4 calculate the camera center C/T robustly %%%%
+fprintf("####Running step 4, calculate the camera center C/T robustly.####\n");
 if skip_step_4 
+    fprintf("Skip step 4 by config.\n");
     load("step_4.mat");
 else 
+    tic;
+
     Ps = cell(1,size(img_names,2));
     xs = cell(1,size(img_names,2)); % to save inlier X and x for step 6
     Xs = cell(1,size(img_names,2));
@@ -186,28 +240,45 @@ else
 %         plot(xi_p(1,inliers_t_idx),xi_p(2,inliers_t_idx),'o', Color='b');
 %         hold off
     end
-    subplot(1,2,1);
-    imshow(desc_img)
-    subplot(1,2,2);
-    plot3(X_0(1,:),X_0(2,:),X_0(3,:),'.');
-    hold on
-        plotcams(Ps)
-    hold off
-    axis equal
+%     subplot(1,2,1);
+%     imshow(desc_img)
+%     subplot(1,2,2);
+%     plot3(X_0(1,:),X_0(2,:),X_0(3,:),'.');
+%     hold on
+%         plotcams(Ps)
+%     hold off
+%     axis equal
+
+    elapsedTime = toc;
+    fprintf("Step 4 done in %s second.\n", elapsedTime);
 
     save("step_4.mat","Ps","Xs","xs");
 end 
 
 %%%% step 5, refine camera centers (translation vectors) using
 %%%% Levenberg-Marquardt
+fprintf("####Running step 5, refining camera centers (T).####\n");
 o_Ps = Ps;
 for i=1:size(Ps,2)
+%     debug 
+%     figure;
+%     x_d = pflat(Ps{i} * [Xs{i};ones(1,size(Xs{i},2))]);
+%     subplot(121);
+%     plot3(Xs{i}(1,:),Xs{i}(2,:),Xs{i}(3,:),'.');
+%     subplot(122);
+%     plot(xs{i}(1,:),xs{i}(2,:), '+', Color='b');
+%     hold on 
+%     plot(x_d(1,:),x_d(2,:), 'o', Color='r');
+%     hold off
+% 
     [P,t] = LM_refine_T(Ps{i},xs{i},[Xs{i};ones(1,size(Xs{i},2))]);
     Ps{i} = P;
 end 
 
 %%%% step 6, traingualte points for all pairs(i,i+1)
 % TODO compute vl_sift early for all steps!
+fprintf("####Running step 6, traingualte points for all pairs(i,i+1).####\n");
+tic;
 Xs= cell(1,size(img_names,2)-1);
 for i=1:size(img_names,2)-1
     image_1 = imread(img_names{i});
@@ -237,13 +308,16 @@ for i=1:size(img_names,2)-1
 
     Xs{i} = Xi;
 
-    figure;
-    plot3(Xi(1,:),Xi(2,:),Xi(3,:),'.');
-    hold on
-        plotcams({Ps{i},Ps{i+1}});
-    hold off
-    axis equal 
+%     figure;
+%     plot3(Xi(1,:),Xi(2,:),Xi(3,:),'.');
+%     hold on
+%         plotcams({Ps{i},Ps{i+1}});
+%     hold off
+%     axis equal 
 end 
+
+elapsedTime = toc;
+fprintf("Step 6 done in %s second.\n", elapsedTime);
 
 figure
 for i=1: size(Xs,2)

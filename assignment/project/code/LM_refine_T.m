@@ -5,9 +5,13 @@ function [Pb,T] = LM_refine_T(P,xn,X)
 R = P(:,1:3);
 t = P(:,4);
 mu = 0.01;
+
+diff = xn - pflat([R t]*X);
+% error before optimization
+rb = reshape(diff(1:2,:),[],1);
 while true
     % re-projection error
-    diff = pflat([R t]*X)- xn;
+    diff = xn- pflat([R t]*X) ;
     r = reshape(diff(1:2,:),[],1);
     % build Jacobian matrix
     J=[];
@@ -21,7 +25,7 @@ while true
     delta_T = -inv((J'*J+mu*eye(size(J,2))))*J'*r;
     %
     err= r'* r;
-    diff = pflat([R t+delta_T]*X)- xn;
+    diff = xn - pflat([R t+delta_T]*X);
     rp = reshape(diff(1:2,:),[],1);
     err_p = rp' * rp;
     if err_p< err
@@ -37,5 +41,9 @@ while true
 end
 Pb = [R t];
 T = t;
+% error after optimization
+diff = xn-pflat([R t]*X);
+ra = reshape(diff(1:2,:),[],1);
+fprintf("error before: %d, after: %d , mu is: %d \n", rb'* rb, ra'* ra, mu);
 end
 
