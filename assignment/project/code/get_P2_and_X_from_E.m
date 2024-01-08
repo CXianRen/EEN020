@@ -5,13 +5,13 @@ P_1 = [diag([1 1 1]) [0 0 0]'];
 
 best_P2_idx = 1;
 best_point_count = 0;
-
+Xs = cell(1,4);
 P_2s = extract_P_from_E(E);
 for Pi=1:size(P_2s,2)
-    X = [];
+    X = zeros(4,size(x_1_n,2));
     for i= 1: size(x_1_n,2)
         X_i = triangulate_3D_point_DLT(x_1_n(:,i),x_2_n(:,i),P_1,P_2s{Pi});
-        X = [X X_i];
+        X(:,i) = X_i;
     end
     X=pflat(X);
     Xs{Pi} = X;

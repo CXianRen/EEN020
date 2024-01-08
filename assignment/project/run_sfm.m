@@ -24,7 +24,7 @@ skip_step_2 = false;
 skip_step_3 = false;
 skip_step_4 = false;
 
-data_set_id = 2;
+data_set_id = 3;
 fprintf("####Loading dataset %d###\n", data_set_id);
 
 % read data set info
@@ -55,8 +55,6 @@ else
 end
 
 
-
-
 %%%% step 1, to calculate relative R. %%%%%
 fprintf("####Running step 1, to calculate relative rotation.####\n");
 
@@ -69,10 +67,24 @@ else
     R_s = cell(1,size(img_names,2));
     R_s{1} = [1 0 0; 0 1 0; 0 0 1];
     for i = 1 : size(img_names,2)-1
-     image_1 = imread(img_names{i});
-     image_2 = imread(img_names{i+1});
-     [R,T] = step_1(image_1,image_2,K);
-     R_s{i+1} = R;
+%      image_1 = imread(img_names{i});
+%      image_2 = imread(img_names{i+1});
+
+     f1 = fs{i};
+     f2 = fs{i+1};
+     d1 = ds{i};
+     d2 = ds{i+1};
+     [matches, ~] = vl_ubcmatch(d1,d2);
+     x1 = [f1(1,matches(1,:)); f1(2,matches(1,:)); ones(1,size(f1(2,matches(1,:)),2))];
+     x2 = [f2(1,matches(2,:)); f2(2,matches(2,:)); ones(1,size(f2(2,matches(2,:)),2))];
+     x1_normalized = inv(K)*x1;
+     x2_normalized = inv(K)*x2;
+
+     [E, ~, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized);
+     [P2,~,~,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
+
+     R_s{i+1} = P2(:,1:3);
+%      T = P2(:,4);
     end 
     
     elapsedTime = toc;
@@ -111,7 +123,7 @@ else
     d1 = ds{init_pair(1)};
     f2 = fs{init_pair(2)};
     d2 = ds{init_pair(2)};
-    
+
     [matches, scores] = vl_ubcmatch(d1,d2);
     x1 = [f1(1,matches(1,:)); f1(2,matches(1,:)); ones(1,size(f1(2,matches(1,:)),2))];
     x2 = [f2(1,matches(2,:)); f2(2,matches(2,:)); ones(1,size(f2(2,matches(2,:)),2))];
@@ -184,7 +196,8 @@ else
     Xs = cell(1,size(img_names,2));
     for i=1:size(img_names,2)
         image_i = imread(img_names{i});
-        [fi di] = vl_sift(single(rgb2gray(image_i)), 'PeakThresh', 1);
+        fi = fs{i};
+        di = ds{i};
         [matches, scores] = vl_ubcmatch(di,desc_X);
         xi = [fi(1,matches(1,:)); fi(2,matches(1,:)); ones(1,size(fi(2,matches(1,:)),2))];
         xm = desc_x(:,matches(2,:));
@@ -283,8 +296,11 @@ Xs= cell(1,size(img_names,2)-1);
 for i=1:size(img_names,2)-1
     image_1 = imread(img_names{i});
     image_2 = imread(img_names{i+1});
-    [f1 d1] = vl_sift(single(rgb2gray(image_1)), 'PeakThresh', 1);
-    [f2 d2] = vl_sift(single(rgb2gray(image_2)), 'PeakThresh', 1);
+    f1 = fs{i};
+    d1 = ds{i};
+    f2 = fs{i+1};
+    d2 = ds{i+1};
+
     [matches, scores] = vl_ubcmatch(d1,d2);
     x1 = [f1(1,matches(1,:)); f1(2,matches(1,:)); ones(1,size(f1(2,matches(1,:)),2))];
     x2 = [f2(1,matches(2,:)); f2(2,matches(2,:)); ones(1,size(f2(2,matches(2,:)),2))];
