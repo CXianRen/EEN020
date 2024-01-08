@@ -24,11 +24,19 @@ skip_step_2 = false;
 skip_step_3 = false;
 skip_step_4 = false;
 
-data_set_id = 3;
+data_set_id = 2;
 fprintf("####Loading dataset %d###\n", data_set_id);
 
 % read data set info
 [K, img_names, init_pair, pixel_threshold] = get_dataset_info(data_set_id);
+fprintf("init_pair (%d:%d)\n", init_pair(1),init_pair(2));
+
+epipolar_threshold = pixel_threshold/K(1,1);
+homography_threshold =  3 * pixel_threshold/K(1,1);
+translation_threshold = 3 * pixel_threshold/K(1,1);
+
+fprintf("pixel threshold %d px.\n", pixel_threshold);
+
 
 %%%% step 0, extra feature.%%%%
 fprintf("####Running step 0, do vl_sift to all images.####\n");
@@ -67,8 +75,6 @@ else
     R_s = cell(1,size(img_names,2));
     R_s{1} = [1 0 0; 0 1 0; 0 0 1];
     for i = 1 : size(img_names,2)-1
-%      image_1 = imread(img_names{i});
-%      image_2 = imread(img_names{i+1});
 
      f1 = fs{i};
      f2 = fs{i+1};
@@ -80,7 +86,8 @@ else
      x1_normalized = inv(K)*x1;
      x2_normalized = inv(K)*x2;
 
-     [E, ~, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized);
+%      [E, ~, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized,epipolar_threshold);
+     [E,H,inliers_idx] = estimate_R_robust(x1_normalized,x2_normalized,epipolar_threshold,homography_threshold);
      [P2,~,~,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
 
      R_s{i+1} = P2(:,1:3);
@@ -131,7 +138,7 @@ else
     % estimate E and get R|T from E, also X
     x1_normalized = inv(K)*x1;
     x2_normalized = inv(K)*x2;
-    [E, epsilon, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized);
+    [E, epsilon, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized,epipolar_threshold);
     [P2,X,P2s,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
     % center X (TODO)
     %% improve X with LM (will the result be better?)
@@ -224,7 +231,7 @@ else
         % 2 points method (TODO)
         % method (simpilify) calculate camera DLT in CE2
     %       [Pi, ~] = estimate_T_robust(xi,Xi,K);
-        [Ps{i}, inliers_t_idx] = estimate_T_robust_2p(xi,Xi,K,R_s_abs{i});
+        [Ps{i}, inliers_t_idx] = estimate_T_robust_2p(xi,Xi,K,R_s_abs{i},translation_threshold);
         Xs{i} = Xi(:,inliers_t_idx);
         xs{i} = xi(:,inliers_t_idx);
     %      P1 = estimate_camera_DLT(inv(K)*xm(:,random_index),Xi(:,random_index));

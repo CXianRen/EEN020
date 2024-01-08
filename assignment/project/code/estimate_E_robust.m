@@ -1,4 +1,4 @@
-function [best_E,epsilon,inliers_idx] = estimate_E_robust(K,x1,x2)
+function [best_E,epsilon,inliers_idx] = estimate_E_robust(K,x1,x2,err_threshold)
 %ESTIMATE_E_ROBUST Summary of this function goes here
 
 alpha = 0.99;
@@ -6,13 +6,13 @@ alpha = 0.99;
 epsilon = 0.1;
 % the size of subset should be?
 sample_point_num = 8;
-err_threshold_pixel = 1;
+% err_threshold_pixel = 1;
 
 update_T = @(epsilon) ceil(log10(1-alpha)/(log10(1-epsilon^sample_point_num)));
 
 T = update_T(epsilon);
 
-err_threshold = err_threshold_pixel/K(1,1);
+% err_threshold = err_threshold_pixel/K(1,1);
 iteration_count = 0;
 iteration_real_count = 0;
 while iteration_count <= T %&& iteration_count < 1000
