@@ -27,10 +27,12 @@ skip_step_3 = false;
 skip_step_4 = false;
 
 using_parallel_RANSAC = true;
+% uncomment this line to use the standard RANSAC
+using_parallel_RANSAC = false;
 if using_parallel_RANSAC == true
     fprintf("using paralle RANSAC\n");
 else 
-     fprintf("using default RANSAC\n");
+    fprintf("using standard RANSAC\n");
 end 
 
 data_set_id = id;
@@ -42,7 +44,7 @@ fprintf("init_pair (%d:%d)\n", init_pair(1),init_pair(2));
 
 epipolar_threshold = 1*pixel_threshold/K(1,1);
 homography_threshold = 1*3 * pixel_threshold/K(1,1);
-translation_threshold = 2*3 * pixel_threshold/K(1,1);
+translation_threshold = 3*3 * pixel_threshold/K(1,1);
 
 fprintf("pixel threshold %d px.\n", pixel_threshold);
 

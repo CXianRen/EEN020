@@ -40,7 +40,7 @@ function [K, img_names, init_pair, pixel_threshold] = get_dataset_info(dataset)
     im_width = 1936; im_height = 1296;
     focal_length_35mm = 43.0; % from the EXIF data
     init_pair = [5, 10];
-    pixel_threshold = 1.0;
+    pixel_threshold = 2.0;
   elseif dataset == 5
     % Golden statue
     img_names = {"data/5/DSC_0336.JPG", "data/5/DSC_0337.JPG", "data/5/DSC_0338.JPG", "data/5/DSC_0339.JPG", "data/5/DSC_0340.JPG", ...
