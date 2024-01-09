@@ -15,7 +15,6 @@ The whole system (ppt page 6):
 
 So the problem is: If there are many mismatched point, the result will not be quite as precise. (Outlier problem)
 
-(should there any labs here to show it?)
 
 (Todo how to elimate projective ambiguity?)(using calibrated camera!).
 
@@ -23,10 +22,12 @@ So the problem is: If there are many mismatched point, the result will not be qu
   + based on the proportion of outliers is samll.
   
   + compute E with a subset of matched points.
-  + evaluate the result  (how to ?, 计算后，重投)
-    + the code should like:
+  + evaluate the result  (how to ?)
+    + compute E with subset points.
+    + erro = dist(x,epipolar line)
+    + compute inliers
     ```cpp
-    ?
+      Assignment 4 computer exercise 2.
     ```
 
 ### here, the slide proposaled a line fitting example. (why is line nor other?)
@@ -76,4 +77,24 @@ So the problem is: If there are many mismatched point, the result will not be qu
   + $Mf = 0$ 
   + $f = u_2 + t(u_1-u_2)$
   + $u_1, u_2 \in null(M)$
+    + null space vs eigen vector
   + get t from a CAS(Maxima)
+    + CAS: computer algebra system.
+
+#### Planar scense
+  + why 7/8 points method will return unstable solution?
+    + PPT page 54 lecture 7.
+    + because the for point correspondences from a single 3d plane, there is a homography H such that $y=Hx$ 
+
+  + what can we do ?
+    + for calibrated setup
+      + 5-point method 
+      + Find H and decompose into R and T
+    + for uncalibrated setup
+      + discard F if estimated from $>= 5$ planar correspndences
+        + might reuiqre many iterations
+          + so we can use DGEN-SAC (degenerate sample consensus)
+          + (? how to tell a mathce is in a same plane?, === how to get the H?)
+  
+  + how can we tell it is a dominate plane in the scene?
+    + 
