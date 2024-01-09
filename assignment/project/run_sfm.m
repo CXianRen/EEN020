@@ -1,4 +1,6 @@
-clear
+function run_sfm(id)
+% run_sfm.m
+% clear
 close all
 clc
 
@@ -24,16 +26,23 @@ skip_step_2 = false;
 skip_step_3 = false;
 skip_step_4 = false;
 
-data_set_id = 2;
+using_parallel_RANSAC = true;
+if using_parallel_RANSAC == true
+    fprintf("using paralle RANSAC\n");
+else 
+     fprintf("using default RANSAC\n");
+end 
+
+data_set_id = id;
 fprintf("####Loading dataset %d###\n", data_set_id);
 
 % read data set info
 [K, img_names, init_pair, pixel_threshold] = get_dataset_info(data_set_id);
 fprintf("init_pair (%d:%d)\n", init_pair(1),init_pair(2));
 
-epipolar_threshold = pixel_threshold/K(1,1);
-homography_threshold =  3 * pixel_threshold/K(1,1);
-translation_threshold = 3 * pixel_threshold/K(1,1);
+epipolar_threshold = 1*pixel_threshold/K(1,1);
+homography_threshold = 1*3 * pixel_threshold/K(1,1);
+translation_threshold = 2*3 * pixel_threshold/K(1,1);
 
 fprintf("pixel threshold %d px.\n", pixel_threshold);
 
@@ -81,17 +90,25 @@ else
      d1 = ds{i};
      d2 = ds{i+1};
      [matches, ~] = vl_ubcmatch(d1,d2);
-     x1 = [f1(1,matches(1,:)); f1(2,matches(1,:)); ones(1,size(f1(2,matches(1,:)),2))];
-     x2 = [f2(1,matches(2,:)); f2(2,matches(2,:)); ones(1,size(f2(2,matches(2,:)),2))];
+     x1 = [f1(1,matches(1,:)); ...
+           f1(2,matches(1,:)); ...
+           ones(1,size(f1(2,matches(1,:)),2))];
+     x2 = [f2(1,matches(2,:)); ...
+           f2(2,matches(2,:)); ...
+           ones(1,size(f2(2,matches(2,:)),2))];
      x1_normalized = inv(K)*x1;
      x2_normalized = inv(K)*x2;
 
-%      [E, ~, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized,epipolar_threshold);
-     [E,H,inliers_idx] = estimate_R_robust(x1_normalized,x2_normalized,epipolar_threshold,homography_threshold);
-     [P2,~,~,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
-
-     R_s{i+1} = P2(:,1:3);
-%      T = P2(:,4);
+     if using_parallel_RANSAC == false
+         [E, ~, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized,epipolar_threshold);
+         [P2,X,~,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
+         R_s{i+1} = P2(:,1:3);
+     else
+         [R,~,~,~] = estimate_R_robust( ...
+             x1_normalized,x2_normalized, ...
+             epipolar_threshold,homography_threshold);
+         R_s{i+1} = R;
+     end 
     end 
     
     elapsedTime = toc;
@@ -138,8 +155,18 @@ else
     % estimate E and get R|T from E, also X
     x1_normalized = inv(K)*x1;
     x2_normalized = inv(K)*x2;
-    [E, epsilon, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized,epipolar_threshold);
-    [P2,X,P2s,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
+    
+    if using_parallel_RANSAC == false
+        [E, ~, inliers_idx] = estimate_E_robust(K,x1_normalized,x2_normalized,epipolar_threshold);
+        [P2,X,~,~,~]= get_P2_and_X_from_E(E,x1_normalized(:,inliers_idx),x2_normalized(:,inliers_idx));
+    
+    else
+        [R,T,X,inliers_idx] = estimate_R_robust( ...
+             x1_normalized,x2_normalized, ...
+             epipolar_threshold,homography_threshold);
+        P2=[R T];
+    end 
+
     % center X (TODO)
     %% improve X with LM (will the result be better?)
     P1=[1 0 0 0; 0 1 0 0; 0 0 1 0];
@@ -167,12 +194,12 @@ else
         end
     end
 
-    %%
+    %
     elapsedTime = toc;
     fprintf("Step 3 done in %s second.\n", elapsedTime);
 
     % bring X to world cooridnates. 
-    X_0 = R_s_abs{init_pair(1)}' * X(1:3,:);  % TODO WHY?
+    X_0 = R_s_abs{init_pair(1)}' * X(1:3,:); 
     % X_0 = X(1:3,:);
     % save inlier desc_X 
     d1_matches = d1(:,matches(1,:));
@@ -181,14 +208,6 @@ else
     desc_img = image_1;
     save("step_3.mat","X_0","desc_X","desc_x","desc_img");
 
-    % debug 
-%     xrp = P2 * [X_0;ones(1,size(X_0,2))];
-%     xrp= pflat(xrp);
-%     plot(x2_normalized(1,inliers_idx),x2_normalized(2,inliers_idx),'+', Color='r');
-%     hold on 
-%     plot(xrp(1,:),xrp(2,:),'o', Color='b');
-%     hold off
-    % 
 end
 %%%% step 4 calculate the camera center C/T robustly %%%%
 fprintf("####Running step 4, calculate the camera center C/T robustly.####\n");
@@ -210,64 +229,16 @@ else
         xm = desc_x(:,matches(2,:));
     
         random_index = randperm(size(xi,2),10);
-    %     figure;
-    %     imagesc([image_i desc_img]);
-    %     hold on 
-    %     plot([xi(1,random_index); xm(1,random_index)+ size(image_i,2)], ...
-    %          [xi(2,random_index); xm(2,random_index)], '-')
     
         xi = inv(K)*xi;
         Xi = X_0(:,matches(2,:));
-        % debug 
-    %     P1= [1 0 0 0; 0 1 0 0; 0 0 1 0];
-    %     xrp =K* P1 * [Xi;ones(1,size(Xi,2))];
-    %     xrp= pflat(xrp);
-    %    
-    %     plot(xm(1,random_index) + size(image_i,2),xm(2,random_index),'+', Color='r');
-    % 
-    %     plot(xrp(1,random_index)+ size(image_i,2),xrp(2,random_index),'o', Color='b');
-        % 
-    
-        % 2 points method (TODO)
+        % 2 points method
         % method (simpilify) calculate camera DLT in CE2
     %       [Pi, ~] = estimate_T_robust(xi,Xi,K);
         [Ps{i}, inliers_t_idx] = estimate_T_robust_2p(xi,Xi,K,R_s_abs{i},translation_threshold);
         Xs{i} = Xi(:,inliers_t_idx);
         xs{i} = xi(:,inliers_t_idx);
-    %      P1 = estimate_camera_DLT(inv(K)*xm(:,random_index),Xi(:,random_index));
-    
-    %     xrp =K* P1 * [Xi;ones(1,size(Xi,2))];
-    %     xrp= pflat(xrp);
-    %     plot(xm(1,random_index)+ size(image_i,2),xm(2,random_index),'x', Color='y');
-    %    
-    %     plot(xrp(1,random_index)+ size(image_i,2),xrp(2,random_index),'*', Color='g');
-    %     hold off
-    
-%         figure
-    %     plot 3d points
-%         subplot(1,2,1)
-%         plot3(Xi(1,inliers_t_idx),Xi(2,inliers_t_idx),Xi(3,inliers_t_idx),'+', 'Color',rand(1,3));
-%         hold on
-%             plotcams({Ps{i}})
-%         hold off
-%         axis equal
-        %plot projected points from 3d points with estimated camera
-%         subplot(1,2,2)
-%         xi_p = Ps{i} * [Xi;ones(1,size(Xi,2))];
-%         xi_p= pflat(xi_p);
-%         plot(xi(1,inliers_t_idx),xi(2,inliers_t_idx),'+', Color='r');
-%         hold on 
-%         plot(xi_p(1,inliers_t_idx),xi_p(2,inliers_t_idx),'o', Color='b');
-%         hold off
     end
-%     subplot(1,2,1);
-%     imshow(desc_img)
-%     subplot(1,2,2);
-%     plot3(X_0(1,:),X_0(2,:),X_0(3,:),'.');
-%     hold on
-%         plotcams(Ps)
-%     hold off
-%     axis equal
 
     elapsedTime = toc;
     fprintf("Step 4 done in %s second.\n", elapsedTime);
@@ -280,17 +251,6 @@ end
 fprintf("####Running step 5, refining camera centers (T).####\n");
 o_Ps = Ps;
 for i=1:size(Ps,2)
-%     debug 
-%     figure;
-%     x_d = pflat(Ps{i} * [Xs{i};ones(1,size(Xs{i},2))]);
-%     subplot(121);
-%     plot3(Xs{i}(1,:),Xs{i}(2,:),Xs{i}(3,:),'.');
-%     subplot(122);
-%     plot(xs{i}(1,:),xs{i}(2,:), '+', Color='b');
-%     hold on 
-%     plot(x_d(1,:),x_d(2,:), 'o', Color='r');
-%     hold off
-% 
     [P,t] = LM_refine_T(Ps{i},xs{i},[Xs{i};ones(1,size(Xs{i},2))]);
     Ps{i} = P;
 end 
@@ -330,13 +290,6 @@ for i=1:size(img_names,2)-1
     Xi = Xi(:,Xi_inliners_idx);
 
     Xs{i} = Xi;
-
-%     figure;
-%     plot3(Xi(1,:),Xi(2,:),Xi(3,:),'.');
-%     hold on
-%         plotcams({Ps{i},Ps{i+1}});
-%     hold off
-%     axis equal 
 end 
 
 elapsedTime = toc;
@@ -350,3 +303,5 @@ end
 plotcams(Ps);
 hold off 
 axis equal
+
+end

@@ -1,4 +1,4 @@
-function [P_2,X, P_2s, Xs] = get_P2_and_X_from_E(E,x_1_n,x_2_n)
+function [P_2,X,P_2s, Xs, best_point_count] = get_P2_and_X_from_E(E,x_1_n,x_2_n)
 %GET_P2_X_FROM( Summary of this function goes here
 
 P_1 = [diag([1 1 1]) [0 0 0]'];

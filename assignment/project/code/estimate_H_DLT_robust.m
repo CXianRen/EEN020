@@ -7,7 +7,7 @@ alpha = 0.99;
 epsilon = 0.1;
 % the size of subset should be?
 sample_point_num = 4;
-err_threshold_pixel = 2;
+err_threshold_pixel = 3;
 %
 
 x1 = inv(K)*x1;
